@@ -1,0 +1,50 @@
+find_package(Qt5 COMPONENTS Widgets Core REQUIRED)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+
+set(HEADERS
+    abstractcompositesnapin.h
+    abstractsnapin.h
+    common.h
+    compositesnapindetailsdailogfactory.h
+    compositesnapindetailsdialog.h
+    factory.h
+    icompositesnapin.h
+    isnapindetailsdialog.h
+    isnapin.h
+    isnapinmanager.h
+    model.h
+    plugin.h
+    pluginstorage.h
+    snapindetailsdialogfactory.h
+    snapindetailsdialog.h
+    snapindetailsfactorybase.h
+    snapinmanagementsettings.h
+    snapinmanagementwidget.h
+    snapinmanageradapter.h
+)
+
+set(SOURCES
+    abstractcompositesnapin.cpp
+    abstractsnapin.cpp
+    compositesnapindetailsdialog.cpp
+    model.cpp
+    plugin.cpp
+    pluginstorage.cpp
+    snapindetailsdialog.cpp
+    snapinmanageradapter.cpp
+)
+
+set(UI_FORMS
+    compositesnapindetailsdialog.ui
+    snapinmanagementwidget.ui
+    snapindetailsdialog.ui
+)
+
+set(SOURCES ${SOURCES} ${HEADERS} ${UI_FORMS})
+
+add_library(component-system_static STATIC ${SOURCES})
+target_link_libraries(component-system_static Qt5::Core Qt5::Widgets)
