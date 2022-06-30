@@ -32,7 +32,7 @@ namespace gpui
 class ISnapInDetailsDialog : public QDialog
 {
 public:
-
+    Q_OBJECT
 };
 
 }
