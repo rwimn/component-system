@@ -29,6 +29,7 @@
 
 namespace gpui
 {
+class AbstractSnapInPrivate;
 
 /**
  * @brief Adapts interface of a ISnapIn for a plugin.
@@ -36,65 +37,48 @@ namespace gpui
 class AbstractSnapIn : protected Plugin, public ISnapIn
 {
 public:
-    /**
-     * @brief isLoaded Returns true if snap-in is loaded.
-     */
-    bool isLoaded();
-
-    /**
-     * @brief Gets the identifier for the instance of the snap-in.
-     * The identifier is unique across snap-in instances within a application.
-     */
     QUuid getId() override;
 
-    /**
-     * @brief getType Returns type of a snap-in.
-     */
     QString getType() override;
 
-    /**
-     * @brief Gets the identifier for the instance of the snap-in.
-     * The identifier is unique across snap-in instances within a application.
-     * This value can never be a null value or invalid.
-     */
     QUuid getRootNode() override;
 
-    /**
-     * @brief Called when a snap-in is initialized. It allows derived classes to provide additional initialization.
-     */
-    void onInitialize() override;
-
-    /**
-     * @brief Called when the snap-in is shutting down.
-     * Once this call returns, actions which modify the application, such as adding nodes,
-     * or modifying view descriptions, are not honored.
-     */
-    void onShutdown() override;
-
-    /**
-     * @brief Returns display name of a snap-in.
-     */
     QString getDisplayName() override;
 
-    /**
-     * @brief Gets the help text for the instance of the snap-in.
-     */
     QString getHelpText() override;
 
-    /**
-     * @brief Gets version of a snap-in.
-     */
     QVersionNumber getVersion() override;
 
-    /**
-     * @brief Returns license assosiated with the module.
-     */
     QString getLicense() override;
 
-    /**
-     * @brief Returns copyright of module.
-     */
     QString getCopyright() override;
+
+protected:
+    AbstractSnapIn(QString type, QString name,
+                   QString helpText = {}, QVersionNumber version = {}, QString license = {}, QString copyright = {});
+    ~AbstractSnapIn();
+
+protected:
+    void setId(QUuid id);
+
+    void setRootNode(QUuid rootNode);
+
+    void setHelpText(QString text);
+
+    void setVersion(QString version);
+
+    void setLicense(QString license);
+
+    void setCopyright(QString copyright);
+
+private:
+    AbstractSnapIn(const AbstractSnapIn&)            = delete;   // copy ctor
+    AbstractSnapIn(AbstractSnapIn&&)                 = delete;   // move ctor
+    AbstractSnapIn& operator=(const AbstractSnapIn&) = delete;   // copy assignment
+    AbstractSnapIn& operator=(AbstractSnapIn&&)      = delete;   // move assignment
+
+private:
+    AbstractSnapInPrivate* d;
 };
 
 }

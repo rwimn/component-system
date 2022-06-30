@@ -23,57 +23,73 @@
 namespace gpui
 {
 
-bool AbstractSnapIn::isLoaded()
+class AbstractSnapInPrivate
 {
-    return false;
-}
+public:
+    QUuid id {};
+    QUuid rootNode {};
+    QString type {};
+    QString helpText {};
+    QVersionNumber version {};
+    QString license {};
+    QString copyright {};
+};
 
 QUuid AbstractSnapIn::getId()
 {
-    return {};
+    return d->id;
 }
 
 QUuid AbstractSnapIn::getRootNode()
 {
-    return {};
-}
-
-void AbstractSnapIn::onInitialize()
-{
-}
-
-void AbstractSnapIn::onShutdown()
-{
+    return d->rootNode;
 }
 
 QString AbstractSnapIn::getDisplayName()
 {
-    return {};
-}
-
-QString AbstractSnapIn::getHelpText()
-{
-    return {};
-}
-
-QVersionNumber AbstractSnapIn::getVersion()
-{
-    return {};
-}
-
-QString AbstractSnapIn::getLicense()
-{
-    return {};
-}
-
-QString AbstractSnapIn::getCopyright()
-{
-    return {};
+    return Plugin::getName();
 }
 
 QString AbstractSnapIn::getType()
 {
-    return {};
+    return d->type;
+}
+
+QString AbstractSnapIn::getHelpText()
+{
+    return d->helpText;
+}
+
+QVersionNumber AbstractSnapIn::getVersion()
+{
+    return d->version;
+}
+
+QString AbstractSnapIn::getLicense()
+{
+    return d->license;
+}
+
+QString AbstractSnapIn::getCopyright()
+{
+    return d->copyright;
+}
+
+AbstractSnapIn::AbstractSnapIn(QString type, QString name,
+                               QString helpText, QVersionNumber version, QString license, QString copyright)
+    : Plugin(name)
+    , d(new AbstractSnapInPrivate())
+{
+    d->type = type;
+    d->helpText = helpText;
+    d->version = version;
+    d->license = license;
+    d->copyright = copyright;
+}
+
+AbstractSnapIn::~AbstractSnapIn()
+{
+    delete d;
 }
 
 }
