@@ -21,6 +21,7 @@
 #ifndef _SNAPINDETAILSDIALOG_H
 #define _SNAPINDETAILSDIALOG_H
 
+#include "isnapin.h"
 #include "isnapindetailsdialog.h"
 
 namespace gpui
@@ -32,8 +33,11 @@ namespace gpui
  */
 class SnapInDetailsDialog : public ISnapInDetailsDialog
 {
-public:
+private:
+    Q_OBJECT
 
+public:
+    SnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
 };
 
 }

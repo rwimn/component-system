@@ -34,7 +34,7 @@ class SnapInDetailsFactoryBase
 {
 public:
     typedef ::gpui::Factory<ISnapInDetailsDialog> Factory;
-    virtual ~SnapInDetailsFactoryBase() {}
+    virtual ~SnapInDetailsFactoryBase() = default;
 
     static Factory::Type create(Factory::Key const& name)
     {
@@ -44,7 +44,7 @@ public:
     template<class Derived>
     static void define(Factory::Key const& name)
     {
-        bool new_key = factory.define(name, &Factory::template create_func<SnapInDetailsFactoryBase, Derived>);
+        bool new_key = factory.define(name, &Factory::template create_func<ISnapInDetailsDialog, Derived>);
         if (!new_key)
         {
             throw std::logic_error(std::string(__PRETTY_FUNCTION__) + ": name is already registered!");
@@ -56,5 +56,7 @@ private:
 };
 
 }
+
+#define REGISTER_DETAILS_DIALOG_CLASS(cls) static SnapInDetailsFactoryBase myfactory::define<#cls>(new #cls().getType());
 
 #endif  //_SNAPINDETAILSFACTORYBASE_H
