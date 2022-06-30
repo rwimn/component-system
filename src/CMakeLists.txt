@@ -35,6 +35,7 @@ set(SOURCES
     plugin.cpp
     pluginstorage.cpp
     snapindetailsdialog.cpp
+    snapinmanagementwidget.cpp
     snapinmanageradapter.cpp
 )
 

@@ -18,39 +18,39 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINMANAGEMENTWIDGET_H
-#define _SNAPINMANAGEMENTWIDGET_H
-
-#include <QWidget>
-
-#include "isnapinmanager.h"
-
-namespace Ui
-{
-    class SnapInManagementWidget;
-}
+#include "snapinmanagementwidget.h"
+#include "ui_snapinmanagementwidget.h"
 
 namespace gpui
 {
 
-class SnapInManagementWidgetPrivate;
-
-/**
- * @brief The SnapInManagementWidget class Shows tree of available snap-ins. Enables and disables snap-ins.
- */
-class SnapInManagementWidget : public QWidget
+class SnapInManagementWidgetPrivate
 {
 public:
-    Q_OBJECT
+    Ui::SnapInManagementWidget* ui = nullptr;
+    ISnapInManager* manager = nullptr;
 
-public:
-    SnapInManagementWidget(QWidget* parent, ISnapInManager* manager);
-    ~SnapInManagementWidget();
-
-private:
-    SnapInManagementWidgetPrivate* d;
+    SnapInManagementWidgetPrivate()
+        : ui(new Ui::SnapInManagementWidget())
+    {
+    }
+    ~SnapInManagementWidgetPrivate()
+    {
+        delete ui;
+    }
 };
 
+SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *manager)
+    : QWidget(parent)
+    , d(new SnapInManagementWidgetPrivate())
+{
+    d->manager = manager;
+    d->ui->setupUi(this);
 }
 
-#endif  //_SNAPINMANAGEMENTWIDGET_H
+SnapInManagementWidget::~SnapInManagementWidget()
+{
+    delete d;
+}
+
+}
