@@ -18,45 +18,32 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSFACTORYBASE_H
-#define _SNAPINDETAILSFACTORYBASE_H
+#ifndef MOCK_SNAP_IN_MANAGER_H
+#define MOCK_SNAP_IN_MANAGER_H
 
-#include "factory.h"
-#include "isnapindetailsdialog.h"
+#include "isnapinmanager.h"
+#include "isnapin.h"
 
-namespace gpui
+#include <gmock/gmock.h>
+
+#include <vector>
+
+namespace test
 {
-
-/**
- * @brief Base for all for snap-in dialog factories.
- */
-class SnapInDetailsFactoryBase
-{
-public:
-    typedef ::gpui::Factory<ISnapInDetailsDialog, QString> Factory;
-    virtual ~SnapInDetailsFactoryBase() = default;
-
-    static Factory::Type create(Factory::Key const& name)
+    class MockSnapInManager : public ::gpui::ISnapInManager
     {
-        return factory.create(name);
-    }
+    public:
+         MOCK_CONST_METHOD0(getSnapIns, std::vector<::gpui::ISnapIn*>());
 
-    template<class Derived>
-    static void define(Factory::Key const& name)
-    {
-        bool new_key = factory.define(name, &Factory::template create_func<ISnapInDetailsDialog, Derived>);
-        if (!new_key)
-        {
-            throw std::logic_error(std::string(__PRETTY_FUNCTION__) + ": name is already registered!");
-        }
-    }
+         MOCK_METHOD1(addSnapIn, void(::gpui::ISnapIn const*));
 
-private:
-    static Factory factory;
-};
+         MOCK_METHOD1(removeSnapIn, void(::gpui::ISnapIn const*));
 
+         MOCK_METHOD0(clear, void());
+
+         MOCK_METHOD0(getInstance, ::gpui::ISnapInManager*());
+    };
 }
 
-#define REGISTER_DETAILS_DIALOG_CLASS(cls) static SnapInDetailsFactoryBase myfactory::define<#cls>(new #cls().getType());
+#endif//MOCK_SNAP_IN_MANAGER_H
 
-#endif  //_SNAPINDETAILSFACTORYBASE_H

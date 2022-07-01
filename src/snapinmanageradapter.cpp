@@ -34,7 +34,7 @@ void SnapInManagerAdapter::removeSnapIn(ISnapIn const* snapIn)
     Q_UNUSED(snapIn);
 }
 
-std::vector<ISnapIn*> SnapInManagerAdapter::getSnapIns()
+std::vector<ISnapIn*> SnapInManagerAdapter::getSnapIns() const
 {
     return {};
 }

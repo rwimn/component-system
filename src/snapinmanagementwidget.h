@@ -30,6 +30,8 @@ namespace Ui
     class SnapInManagementWidget;
 }
 
+class QTreeWidgetItem;
+
 namespace gpui
 {
 
@@ -40,12 +42,14 @@ class SnapInManagementWidgetPrivate;
  */
 class SnapInManagementWidget : public QWidget
 {
-public:
     Q_OBJECT
 
 public:
     SnapInManagementWidget(QWidget* parent, ISnapInManager* manager);
     ~SnapInManagementWidget();
+
+private slots:
+    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     SnapInManagementWidgetPrivate* d;

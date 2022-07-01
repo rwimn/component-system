@@ -37,7 +37,7 @@ public:
 
     void removeSnapIn(ISnapIn const* component) override final;
 
-    std::vector<ISnapIn*> getSnapIns() override final;
+    std::vector<ISnapIn*> getSnapIns() const override final;
 
     void clear() override final;
 

@@ -18,45 +18,19 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSFACTORYBASE_H
-#define _SNAPINDETAILSFACTORYBASE_H
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "factory.h"
-#include "isnapindetailsdialog.h"
+#include <QApplication>
+#include <QStandardItem>
 
-namespace gpui
+int main(int argc, char** argv)
 {
+    ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
 
-/**
- * @brief Base for all for snap-in dialog factories.
- */
-class SnapInDetailsFactoryBase
-{
-public:
-    typedef ::gpui::Factory<ISnapInDetailsDialog, QString> Factory;
-    virtual ~SnapInDetailsFactoryBase() = default;
+    QApplication app(argc, argv);
+    Q_UNUSED(app)
 
-    static Factory::Type create(Factory::Key const& name)
-    {
-        return factory.create(name);
-    }
-
-    template<class Derived>
-    static void define(Factory::Key const& name)
-    {
-        bool new_key = factory.define(name, &Factory::template create_func<ISnapInDetailsDialog, Derived>);
-        if (!new_key)
-        {
-            throw std::logic_error(std::string(__PRETTY_FUNCTION__) + ": name is already registered!");
-        }
-    }
-
-private:
-    static Factory factory;
-};
-
+    return RUN_ALL_TESTS();
 }
-
-#define REGISTER_DETAILS_DIALOG_CLASS(cls) static SnapInDetailsFactoryBase myfactory::define<#cls>(new #cls().getType());
-
-#endif  //_SNAPINDETAILSFACTORYBASE_H

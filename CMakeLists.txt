@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.16)
 
 project("component system")
 
@@ -37,7 +37,7 @@ enable_testing()
 add_subdirectory(tests)
 
 function(project_testcoverage_setup)
-    if (PREFERENCES_EDITOR_BUILD_TESTS)
+    if (BUILD_TESTS)
         setup_target_for_coverage_lcov(NAME coverage
             EXECUTABLE ctest -j 4
             EXCLUDE
@@ -47,6 +47,6 @@ function(project_testcoverage_setup)
     endif()
 endfunction()
 
-if (PREFERENCES_EDITOR_SETUP_CODECOVERAGE)
+if (SETUP_CODECOVERAGE)
     project_testcoverage_setup()
 endif()

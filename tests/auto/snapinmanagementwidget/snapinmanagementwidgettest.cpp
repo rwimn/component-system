@@ -18,45 +18,39 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSFACTORYBASE_H
-#define _SNAPINDETAILSFACTORYBASE_H
+#include "snapinmanagementwidgettest.h"
 
-#include "factory.h"
-#include "isnapindetailsdialog.h"
+#include "testsnapin.h"
+#include "snapinmanagementwidget.h"
 
-namespace gpui
+#include <QTest>
+#include <QTreeWidget>
+
+using namespace ::testing;
+using namespace ::gpui;
+
+namespace test
 {
 
-/**
- * @brief Base for all for snap-in dialog factories.
- */
-class SnapInDetailsFactoryBase
+TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstruction)
 {
-public:
-    typedef ::gpui::Factory<ISnapInDetailsDialog, QString> Factory;
-    virtual ~SnapInDetailsFactoryBase() = default;
+    std::vector<ISnapIn*> snapIns;
+    std::unique_ptr<TestSnapIn> testSnapIn(new TestSnapIn());
+    snapIns.push_back(testSnapIn.get());
 
-    static Factory::Type create(Factory::Key const& name)
-    {
-        return factory.create(name);
-    }
+    ON_CALL(snapInManager, getSnapIns()).WillByDefault(Return(snapIns));
 
-    template<class Derived>
-    static void define(Factory::Key const& name)
-    {
-        bool new_key = factory.define(name, &Factory::template create_func<ISnapInDetailsDialog, Derived>);
-        if (!new_key)
-        {
-            throw std::logic_error(std::string(__PRETTY_FUNCTION__) + ": name is already registered!");
-        }
-    }
+    SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
+    snapInManagementWidget.show();
 
-private:
-    static Factory factory;
-};
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+
+    QVERIFY(treeWidget);
+
+    QCOMPARE(treeWidget->topLevelItem(0)->text(0), "Yes");
+    QCOMPARE(treeWidget->topLevelItem(0)->text(1), "TestSanpIn");
+    QCOMPARE(treeWidget->topLevelItem(0)->text(3), "0.1.2");
+}
 
 }
 
-#define REGISTER_DETAILS_DIALOG_CLASS(cls) static SnapInDetailsFactoryBase myfactory::define<#cls>(new #cls().getType());
-
-#endif  //_SNAPINDETAILSFACTORYBASE_H

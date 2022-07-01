@@ -53,7 +53,7 @@ public:
      * @brief getSnapIns Get a list of all snap-ins associated with this manager.
      * @return List of all snap-ins.
      */
-    virtual std::vector<ISnapIn*> getSnapIns() = 0;
+    virtual std::vector<ISnapIn*> getSnapIns() const = 0;
 
     /**
      * @brief Unload all the snap-ins from the manager.

@@ -21,23 +21,47 @@
 #include "snapinmanagementwidget.h"
 #include "ui_snapinmanagementwidget.h"
 
+#include "isnapin.h"
+#include "snapindetailsfactorybase.h"
+
+#include <QTreeWidgetItem>
+#include <QTableWidget>
+
+#include <memory>
+
+Q_DECLARE_METATYPE(::gpui::ISnapIn*)
+
 namespace gpui
 {
+
+enum TreeItemColumn
+{
+    FIRST   = 0,
+    ENABLED = 0,
+    NAME    = 1,
+    VERSION = 2,
+};
 
 class SnapInManagementWidgetPrivate
 {
 public:
     Ui::SnapInManagementWidget* ui = nullptr;
     ISnapInManager* manager = nullptr;
+    std::unique_ptr<SnapInDetailsFactoryBase> factory;
 
     SnapInManagementWidgetPrivate()
         : ui(new Ui::SnapInManagementWidget())
+        , factory(new SnapInDetailsFactoryBase())
     {
     }
+
     ~SnapInManagementWidgetPrivate()
     {
         delete ui;
     }
+
+private slots:
+    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 };
 
 SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *manager)
@@ -46,11 +70,36 @@ SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *
 {
     d->manager = manager;
     d->ui->setupUi(this);
+
+    for (ISnapIn* snapIn : manager->getSnapIns())
+    {
+        auto snapInItem = new QTreeWidgetItem();
+
+        auto enabled = true;
+        auto version = snapIn->getVersion();
+        auto displayName = snapIn->getDisplayName();
+
+        snapInItem->setText(ENABLED, enabled ? "Yes" : "No");
+        snapInItem->setText(NAME, displayName);
+        snapInItem->setText(VERSION, version.toString());
+
+        snapInItem->setData(FIRST, Qt::UserRole, QVariant::fromValue(snapIn));
+
+        d->ui->treeWidget->addTopLevelItem(snapInItem);
+    }
+
+    d->ui->treeWidget->expandAll();
 }
 
 SnapInManagementWidget::~SnapInManagementWidget()
 {
     delete d;
+}
+
+void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    Q_UNUSED(item);
+    Q_UNUSED(column);
 }
 
 }

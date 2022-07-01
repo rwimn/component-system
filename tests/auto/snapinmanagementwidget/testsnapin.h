@@ -18,45 +18,27 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSFACTORYBASE_H
-#define _SNAPINDETAILSFACTORYBASE_H
+#ifndef TEST_SNAP_IN_H
+#define TEST_SNAP_IN_H
 
-#include "factory.h"
-#include "isnapindetailsdialog.h"
+#include "abstractsnapin.h"
 
-namespace gpui
+namespace test
 {
-
-/**
- * @brief Base for all for snap-in dialog factories.
- */
-class SnapInDetailsFactoryBase
+	
+class TestSnapIn : public ::gpui::AbstractSnapIn
 {
 public:
-    typedef ::gpui::Factory<ISnapInDetailsDialog, QString> Factory;
-    virtual ~SnapInDetailsFactoryBase() = default;
-
-    static Factory::Type create(Factory::Key const& name)
+    TestSnapIn()
+        : ::gpui::AbstractSnapIn("ISnapIn", "TestSnapIn", "Help Text.", { 0, 1, 2 })
     {
-        return factory.create(name);
     }
 
-    template<class Derived>
-    static void define(Factory::Key const& name)
-    {
-        bool new_key = factory.define(name, &Factory::template create_func<ISnapInDetailsDialog, Derived>);
-        if (!new_key)
-        {
-            throw std::logic_error(std::string(__PRETTY_FUNCTION__) + ": name is already registered!");
-        }
-    }
+    void onInitialize() {}
 
-private:
-    static Factory factory;
+    void onShutdown() {}
 };
 
 }
 
-#define REGISTER_DETAILS_DIALOG_CLASS(cls) static SnapInDetailsFactoryBase myfactory::define<#cls>(new #cls().getType());
-
-#endif  //_SNAPINDETAILSFACTORYBASE_H
+#endif//TEST_SNAP_IN_H
