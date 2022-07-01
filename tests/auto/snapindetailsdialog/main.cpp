@@ -18,37 +18,19 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSDIALOG_H
-#define _SNAPINDETAILSDIALOG_H
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include "isnapin.h"
-#include "isnapindetailsdialog.h"
+#include <QApplication>
+#include <QStandardItem>
 
-namespace Ui
+int main(int argc, char** argv)
 {
-    class SnapInDetailsDialog;
+    ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
+
+    QApplication app(argc, argv);
+    Q_UNUSED(app)
+
+    return RUN_ALL_TESTS();
 }
-
-namespace gpui
-{
-
-/**
- * @brief class SnapInDetailsDialog Shows properties of a snap-in.
- * Provides information on snap-in name, description, version, copyright, lisense.
- */
-class SnapInDetailsDialog : public ISnapInDetailsDialog
-{
-private:
-    Q_OBJECT
-
-public:
-    SnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
-    ~SnapInDetailsDialog();
-
-private:
-    Ui::SnapInDetailsDialog* ui;
-};
-
-}
-
-#endif  //_SNAPINDETAILSDIALOG_H

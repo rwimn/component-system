@@ -18,37 +18,41 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINDETAILSDIALOG_H
-#define _SNAPINDETAILSDIALOG_H
+#ifndef MOCK_SNAP_IN_MANAGER_H
+#define MOCK_SNAP_IN_MANAGER_H
 
 #include "isnapin.h"
-#include "isnapindetailsdialog.h"
 
-namespace Ui
+#include <QUuid>
+
+#include <gmock/gmock.h>
+
+namespace test
 {
-    class SnapInDetailsDialog;
+    class MockSnapIn : public ::gpui::ISnapIn
+    {
+    public:
+        MOCK_METHOD0(onInitialize, void());
+
+        MOCK_METHOD0(onShutdown, void());
+
+        MOCK_CONST_METHOD0(getId, QUuid());
+
+        MOCK_CONST_METHOD0(getType, QString());
+
+        MOCK_CONST_METHOD0(getRootNode, QUuid());
+
+        MOCK_CONST_METHOD0(getDisplayName, QString());
+
+        MOCK_CONST_METHOD0(getHelpText, QString());
+
+        MOCK_CONST_METHOD0(getVersion, QVersionNumber());
+
+        MOCK_CONST_METHOD0(getLicense, QString());
+
+        MOCK_CONST_METHOD0(getCopyright, QString());
+    };
 }
 
-namespace gpui
-{
+#endif//MOCK_SNAP_IN_MANAGER_H
 
-/**
- * @brief class SnapInDetailsDialog Shows properties of a snap-in.
- * Provides information on snap-in name, description, version, copyright, lisense.
- */
-class SnapInDetailsDialog : public ISnapInDetailsDialog
-{
-private:
-    Q_OBJECT
-
-public:
-    SnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
-    ~SnapInDetailsDialog();
-
-private:
-    Ui::SnapInDetailsDialog* ui;
-};
-
-}
-
-#endif  //_SNAPINDETAILSDIALOG_H

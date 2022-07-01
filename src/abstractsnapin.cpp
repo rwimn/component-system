@@ -35,42 +35,42 @@ public:
     QString copyright {};
 };
 
-QUuid AbstractSnapIn::getId()
+QUuid AbstractSnapIn::getId() const
 {
     return d->id;
 }
 
-QUuid AbstractSnapIn::getRootNode()
+QUuid AbstractSnapIn::getRootNode() const
 {
     return d->rootNode;
 }
 
-QString AbstractSnapIn::getDisplayName()
+QString AbstractSnapIn::getDisplayName() const
 {
     return Plugin::getName();
 }
 
-QString AbstractSnapIn::getType()
+QString AbstractSnapIn::getType() const
 {
     return d->type;
 }
 
-QString AbstractSnapIn::getHelpText()
+QString AbstractSnapIn::getHelpText() const
 {
     return d->helpText;
 }
 
-QVersionNumber AbstractSnapIn::getVersion()
+QVersionNumber AbstractSnapIn::getVersion() const
 {
     return d->version;
 }
 
-QString AbstractSnapIn::getLicense()
+QString AbstractSnapIn::getLicense() const
 {
     return d->license;
 }
 
-QString AbstractSnapIn::getCopyright()
+QString AbstractSnapIn::getCopyright() const
 {
     return d->copyright;
 }

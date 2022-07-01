@@ -19,4 +19,28 @@
 ***********************************************************************************************************************/
 
 #include "snapindetailsdialog.h"
+#include "ui_snapindetailsdialog.h"
 
+#include <QDialog>
+
+namespace gpui
+{
+    SnapInDetailsDialog::SnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
+        : ISnapInDetailsDialog(parent)
+        , ui(new Ui::SnapInDetailsDialog())
+    {
+        ui->setupUi(this);
+
+        ui->categoryLineEdit->setText(snapIn->getRootNode().toString());
+        ui->copyrightLineEdit->setText(snapIn->getCopyright());
+        ui->descriptionPlainTextEdit->setPlainText(snapIn->getHelpText());
+        ui->licensePlainTextEdit->setPlainText(snapIn->getLicense());
+        ui->nameLineEdit->setText(snapIn->getDisplayName());
+        ui->versionLineEdit->setText(snapIn->getVersion().toString());
+    }
+
+    SnapInDetailsDialog::~SnapInDetailsDialog()
+    {
+        delete ui;
+    }
+}

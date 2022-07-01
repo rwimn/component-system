@@ -52,46 +52,46 @@ public:
      * @brief Gets the identifier for the instance of the snap-in.
      *  The identifier is unique across snap-in instances within a application.
      */
-    virtual QUuid getId() = 0;
+    virtual QUuid getId() const = 0;
 
     /**
      * @brief getType Returns a type of a snap-in.
      */
-    virtual QString getType() = 0;
+    virtual QString getType() const = 0;
 
     /**
      * @brief Gets the identifier for the instance of the snap-in.
      * The identifier is unique across snap-in instances within a application.
      * This value can never be a null value or invalid.
      */
-    virtual QUuid getRootNode() = 0;
+    virtual QUuid getRootNode() const = 0;
 
     /**
      * @brief getDisplayName Returns display name of a snap-in.
      */
-    virtual QString getDisplayName() = 0;
+    virtual QString getDisplayName() const = 0;
 
     /**
      * @brief getHelpText Returns the help text for the instance of the snap-in.
      * @return
      */
-    virtual QString getHelpText() = 0;
+    virtual QString getHelpText() const = 0;
 
     /**
      * @brief getVersion Returns version of a snap-in.
      * @return
      */
-    virtual QVersionNumber getVersion() = 0;
+    virtual QVersionNumber getVersion() const = 0;
 
     /**
      * @brief getLicense Returns license assosiated with the snap-in.
      */
-    virtual QString getLicense() = 0;
+    virtual QString getLicense() const = 0;
 
     /**
      * @brief getCopyright Returns copyright of snap-in.
      */
-    virtual QString getCopyright() = 0;
+    virtual QString getCopyright() const = 0;
 };
 
 }

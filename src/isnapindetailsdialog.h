@@ -31,8 +31,13 @@ namespace gpui
  */
 class ISnapInDetailsDialog : public QDialog
 {
-public:
     Q_OBJECT
+
+public:
+    explicit ISnapInDetailsDialog(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
+        : QDialog(parent, f)
+    {
+    }
 };
 
 }

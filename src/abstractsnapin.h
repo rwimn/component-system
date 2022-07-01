@@ -37,21 +37,21 @@ class AbstractSnapInPrivate;
 class AbstractSnapIn : protected Plugin, public ISnapIn
 {
 public:
-    QUuid getId() override;
+    QUuid getId() const override;
 
-    QString getType() override;
+    QString getType() const override;
 
-    QUuid getRootNode() override;
+    QUuid getRootNode() const override;
 
-    QString getDisplayName() override;
+    QString getDisplayName() const override;
 
-    QString getHelpText() override;
+    QString getHelpText() const override;
 
-    QVersionNumber getVersion() override;
+    QVersionNumber getVersion() const override;
 
-    QString getLicense() override;
+    QString getLicense() const override;
 
-    QString getCopyright() override;
+    QString getCopyright() const override;
 
 protected:
     AbstractSnapIn(QString type, QString name,
