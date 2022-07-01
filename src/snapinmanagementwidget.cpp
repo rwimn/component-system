@@ -59,9 +59,6 @@ public:
     {
         delete ui;
     }
-
-private slots:
-    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
 };
 
 SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *manager)
