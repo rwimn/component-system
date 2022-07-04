@@ -20,6 +20,7 @@
 
 #include "model.h"
 
-namespace gpui {
+namespace gpui
+{
 
 }
