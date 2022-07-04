@@ -31,12 +31,7 @@ namespace gpui
     {
         ui->setupUi(this);
 
-        ui->categoryLineEdit->setText(snapIn->getRootNode().toString());
-        ui->copyrightLineEdit->setText(snapIn->getCopyright());
-        ui->descriptionPlainTextEdit->setPlainText(snapIn->getHelpText());
-        ui->licensePlainTextEdit->setPlainText(snapIn->getLicense());
-        ui->nameLineEdit->setText(snapIn->getDisplayName());
-        ui->versionLineEdit->setText(snapIn->getVersion().toString());
+        ui->snapInWidget->setSnapIn(snapIn);
     }
 
     SnapInDetailsDialog::~SnapInDetailsDialog()
