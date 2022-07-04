@@ -19,4 +19,36 @@
 ***********************************************************************************************************************/
 
 #include "compositesnapindetailsdialog.h"
+#include "ui_compositesnapindetailsdialog.h"
 
+#include "icompositesnapin.h"
+
+namespace gpui
+{
+
+CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
+    : ISnapInDetailsDialog(parent)
+{
+    ui->setupUi(this);
+
+    ui->snapInWidget->setSnapIn(snapIn);
+
+    auto compositeSnapIn = dynamic_cast<ICompositeSnapIn*>(snapIn);
+
+    if (compositeSnapIn)
+    {
+        QMapIterator<QString, QVersionNumber> iterator(compositeSnapIn->getDependencies());
+        while (iterator.hasNext())
+        {
+            ui->listWidget->addItem(iterator.key());
+            iterator.next();
+        }
+    }
+}
+
+CompositeSnapInDetailsDialog::~CompositeSnapInDetailsDialog()
+{
+    delete ui;
+}
+
+}
