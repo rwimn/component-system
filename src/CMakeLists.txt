@@ -25,6 +25,7 @@ set(HEADERS
     snapinmanagementsettings.h
     snapinmanagementwidget.h
     snapinmanageradapter.h
+    snapindetailswidget.h
 )
 
 set(SOURCES
@@ -37,12 +38,14 @@ set(SOURCES
     snapindetailsdialog.cpp
     snapinmanagementwidget.cpp
     snapinmanageradapter.cpp
+    snapindetailswidget.cpp
 )
 
 set(UI_FORMS
     compositesnapindetailsdialog.ui
     snapinmanagementwidget.ui
     snapindetailsdialog.ui
+    snapindetailswidget.ui
 )
 
 set(SOURCES ${SOURCES} ${HEADERS} ${UI_FORMS})
