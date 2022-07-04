@@ -27,28 +27,39 @@
 namespace gpui
 {
 
+class SnapInManagerAdapterPrivate;
+
 /**
  * @brief The SnapInManagerAdapter class This class adapts PluginStorage to provide ISnapInManager interface.
  */
 class SnapInManagerAdapter final : public ISnapInManager
 {
 public:
-    void addSnapIn(ISnapIn const* component) override final;
+    ~SnapInManagerAdapter();
 
-    void removeSnapIn(ISnapIn const* component) override final;
+    void addSnapIn(ISnapIn const* snapIn) override final;
 
-    std::vector<ISnapIn*> getSnapIns() const override final;
+    void removeSnapIn(ISnapIn const* snapIn) override final;
+
+    std::vector<ISnapIn const*> getSnapIns() const override final;
 
     void clear() override final;
 
-    ISnapInManager* getInstance() override final;
+    /**
+     * Get the instance of a snap-in manager.
+     */
+    static ISnapInManager* instance();
 
 private:
+    SnapInManagerAdapter();
+
     SnapInManagerAdapter(const SnapInManagerAdapter&)            = delete;   // copy ctor
     SnapInManagerAdapter(SnapInManagerAdapter&&)                 = delete;   // move ctor
     SnapInManagerAdapter& operator=(const SnapInManagerAdapter&) = delete;   // copy assignment
     SnapInManagerAdapter& operator=(SnapInManagerAdapter&&)      = delete;   // move assignment
 
+private:
+    SnapInManagerAdapterPrivate *d;
 };
 
 }
