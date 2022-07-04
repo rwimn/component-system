@@ -29,10 +29,10 @@
 namespace test
 {
 
-class SnapInDetailsDialogTest : public ::testing::Test
+class SnapInDetailsWidgetTest : public ::testing::Test
 {
 public:
-    SnapInDetailsDialogTest() = default;
+    SnapInDetailsWidgetTest() = default;
 
 protected:
     //Dependancies

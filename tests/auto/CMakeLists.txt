@@ -1,2 +1,2 @@
-add_subdirectory(snapindetailsdialog)
+add_subdirectory(snapindetailswidget)
 add_subdirectory(snapinmanagementwidget)

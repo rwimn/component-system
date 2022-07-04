@@ -1,7 +1,7 @@
 find_package(Qt5 COMPONENTS Core Test REQUIRED)
 find_package(GTest COMPONENTS gtest gmock gtest_main gmock_main REQUIRED)
 
-set(TEST snapindetailsdialogtest)
+set(TEST snapindetailswidgettest)
 
 file(GLOB SOURCES "*.cpp")
 file(GLOB HEADERS "*.h")

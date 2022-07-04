@@ -18,9 +18,9 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapindetailsdialogtest.h"
+#include "snapindetailswidgettest.h"
 
-#include "snapindetailsdialog.h"
+#include "snapindetailswidget.h"
 
 #include <QTest>
 #include <QLineEdit>
@@ -32,7 +32,7 @@ using namespace ::gpui;
 namespace test
 {
 
-TEST_F(SnapInDetailsDialogTest, WidgetContainsValidSnapInAfterConstruction)
+TEST_F(SnapInDetailsWidgetTest, WidgetContainsValidSnapInAfterConstruction)
 {
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
@@ -46,16 +46,16 @@ TEST_F(SnapInDetailsDialogTest, WidgetContainsValidSnapInAfterConstruction)
     ON_CALL(snapIn, getLicense).WillByDefault(Return("License"));
     ON_CALL(snapIn, getCopyright).WillByDefault(Return("Copyright"));
 
-    SnapInDetailsDialog snapInDetailsDialog(nullptr, &snapIn);
-    snapInDetailsDialog.show();
+    SnapInDetailsWidget snapInDetailsWidget(nullptr, &snapIn);
+    snapInDetailsWidget.show();
 
     QTest::qWait(1000);
 
-    auto nameLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("nameLineEdit");
-    auto descriptionPlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit*>("descriptionPlainTextEdit");
-    auto versionLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("versionLineEdit");
-    auto licensePlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit*>("licensePlainTextEdit");
-    auto copyrightLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("copyrightLineEdit");
+    auto nameLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("nameLineEdit");
+    auto descriptionPlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit*>("descriptionPlainTextEdit");
+    auto versionLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("versionLineEdit");
+    auto licensePlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit*>("licensePlainTextEdit");
+    auto copyrightLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("copyrightLineEdit");
 
     EXPECT_TRUE(nameLineEdit);
     EXPECT_TRUE(descriptionPlainTextEdit);
