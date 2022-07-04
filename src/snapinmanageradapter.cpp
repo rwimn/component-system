@@ -31,20 +31,20 @@ namespace gpui
 class SnapInManagerAdapterPrivate
 {
 public:
-    std::vector<ISnapIn const*> snapIns;
+    std::vector<ISnapIn*> snapIns;
 };
 
-void SnapInManagerAdapter::addSnapIn(ISnapIn const* snapIn)
+void SnapInManagerAdapter::addSnapIn(ISnapIn* snapIn)
 {
     d->snapIns.push_back(snapIn);
 }
 
-void SnapInManagerAdapter::removeSnapIn(ISnapIn const* snapIn)
+void SnapInManagerAdapter::removeSnapIn(ISnapIn* snapIn)
 {
     d->snapIns.erase(std::find(d->snapIns.begin(), d->snapIns.end(), snapIn));
 }
 
-std::vector<ISnapIn const*> SnapInManagerAdapter::getSnapIns() const
+std::vector<ISnapIn *> SnapInManagerAdapter::getSnapIns() const
 {
     return d->snapIns;
 }

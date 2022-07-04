@@ -35,9 +35,9 @@ namespace test
     public:
          MOCK_CONST_METHOD0(getSnapIns, std::vector<::gpui::ISnapIn*>());
 
-         MOCK_METHOD1(addSnapIn, void(::gpui::ISnapIn const*));
+         MOCK_METHOD1(addSnapIn, void(::gpui::ISnapIn*));
 
-         MOCK_METHOD1(removeSnapIn, void(::gpui::ISnapIn const*));
+         MOCK_METHOD1(removeSnapIn, void(::gpui::ISnapIn*));
 
          MOCK_METHOD0(clear, void());
 

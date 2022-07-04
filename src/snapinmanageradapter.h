@@ -37,11 +37,11 @@ class SnapInManagerAdapter final : public ISnapInManager
 public:
     ~SnapInManagerAdapter();
 
-    void addSnapIn(ISnapIn const* snapIn) override final;
+    void addSnapIn(ISnapIn* snapIn) override final;
 
-    void removeSnapIn(ISnapIn const* snapIn) override final;
+    void removeSnapIn(ISnapIn* snapIn) override final;
 
-    std::vector<ISnapIn const*> getSnapIns() const override final;
+    std::vector<ISnapIn*> getSnapIns() const override final;
 
     void clear() override final;
 
