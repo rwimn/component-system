@@ -35,8 +35,6 @@ namespace test
 TEST_F(SnapInDetailsWidgetTest, WidgetContainsValidSnapInAfterConstruction)
 {
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
-    ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
-
     ON_CALL(snapIn, getId).WillByDefault(Return(QUuid::createUuid()));
     ON_CALL(snapIn, getType).WillByDefault(Return("Type"));
     ON_CALL(snapIn, getRootNode).WillByDefault(Return(QUuid::createUuid()));
