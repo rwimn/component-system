@@ -20,3 +20,46 @@
 
 #include "abstractcompositesnapin.h"
 
+#include <QMap>
+#include <QString>
+#include <QVersionNumber>
+
+namespace gpui
+{
+
+class AbstractCompositeSnapInPrivate
+{
+public:
+    QMap<QString, QVersionNumber> dependencies;
+};
+
+QMap<QString, QVersionNumber> AbstractCompositeSnapIn::getDependencies()
+{
+    return d->dependencies;
+}
+
+AbstractCompositeSnapIn::AbstractCompositeSnapIn(QString type, QString name, QString helpText,
+                                                 QVersionNumber version, QString license, QString copyright)
+    : AbstractSnapIn(type, name, helpText, version, license, copyright)
+    , d(new AbstractCompositeSnapInPrivate())
+{
+}
+
+AbstractCompositeSnapIn::~AbstractCompositeSnapIn()
+{
+    delete d;
+}
+
+void AbstractCompositeSnapIn::addDependency(const QString &name, const QVersionNumber &version)
+{
+    d->dependencies.insert(name, version);
+}
+
+void AbstractCompositeSnapIn::removeDependency(const QString &name)
+{
+    d->dependencies.remove(name);
+}
+
+
+}
+

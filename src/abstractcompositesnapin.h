@@ -23,13 +23,31 @@
 
 #include "icompositesnapin.h"
 
+#include "abstractsnapin.h"
+
 namespace gpui
 {
 
-class AbstractCompositeSnapIn : public ICompositeSnapIn
+class AbstractCompositeSnapInPrivate;
+
+class AbstractCompositeSnapIn : public AbstractSnapIn, public ICompositeSnapIn
 {
 public:
     QMap<QString, QVersionNumber> getDependencies() override final;
+
+protected:
+    AbstractCompositeSnapIn(QString type, QString name,
+                            QString helpText = {}, QVersionNumber version = {},
+                            QString license = {}, QString copyright = {});
+    ~AbstractCompositeSnapIn();
+
+protected:
+    void addDependency(const QString& name, const QVersionNumber& version);
+
+    void removeDependency(const QString& name);
+
+private:
+    AbstractCompositeSnapInPrivate* d;
 };
 
 }
