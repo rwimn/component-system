@@ -57,17 +57,17 @@ TEST_F(SnapInDetailsDialogTest, WidgetContainsValidSnapInAfterConstruction)
     auto licensePlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit*>("licensePlainTextEdit");
     auto copyrightLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("copyrightLineEdit");
 
-    QVERIFY(nameLineEdit);
-    QVERIFY(descriptionPlainTextEdit);
-    QVERIFY(versionLineEdit);
-    QVERIFY(licensePlainTextEdit);
-    QVERIFY(copyrightLineEdit);
+    EXPECT_TRUE(nameLineEdit);
+    EXPECT_TRUE(descriptionPlainTextEdit);
+    EXPECT_TRUE(versionLineEdit);
+    EXPECT_TRUE(licensePlainTextEdit);
+    EXPECT_TRUE(copyrightLineEdit);
 
-    QCOMPARE(nameLineEdit->text(), "Name");
-    QCOMPARE(descriptionPlainTextEdit->toPlainText(), "Help Text");
-    QCOMPARE(versionLineEdit->text(), "0.1.2");
-    QCOMPARE(licensePlainTextEdit->toPlainText(), "License");
-    QCOMPARE(copyrightLineEdit->text(), "Copyright");
+    ASSERT_EQ(nameLineEdit->text(), "Name");
+    ASSERT_EQ(descriptionPlainTextEdit->toPlainText(), "Help Text");
+    ASSERT_EQ(versionLineEdit->text(), "0.1.2");
+    ASSERT_EQ(licensePlainTextEdit->toPlainText(), "License");
+    ASSERT_EQ(copyrightLineEdit->text(), "Copyright");
 }
 
 }
