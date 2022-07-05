@@ -33,7 +33,7 @@ class AbstractCompositeSnapInPrivate;
 class AbstractCompositeSnapIn : public AbstractSnapIn, public ICompositeSnapIn
 {
 public:
-    QMap<QString, QVersionNumber> getDependencies() override final;
+    QMap<QString, QVersionNumber> getDependencies() const override final;
 
 protected:
     AbstractCompositeSnapIn(QString type, QString name,

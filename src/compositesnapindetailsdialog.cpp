@@ -23,11 +23,14 @@
 
 #include "icompositesnapin.h"
 
+#include <QTableWidget>
+
 namespace gpui
 {
 
 CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
     : ISnapInDetailsDialog(parent)
+    , ui(new Ui::CompositeSnapInDetailsDialog())
 {
     ui->setupUi(this);
 
@@ -38,10 +41,22 @@ CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui
     if (compositeSnapIn)
     {
         QMapIterator<QString, QVersionNumber> iterator(compositeSnapIn->getDependencies());
+
+        int row = 0;
+
         while (iterator.hasNext())
         {
-            ui->listWidget->addItem(iterator.key());
             iterator.next();
+
+            QTableWidgetItem *nameItem = new QTableWidgetItem(iterator.key());
+            QTableWidgetItem *versionItem = new QTableWidgetItem(iterator.value().toString());
+
+            ui->tableWidget->insertRow(row);
+
+            ui->tableWidget->setItem(row, 0, nameItem);
+            ui->tableWidget->setItem(row, 1, versionItem);
+
+            ++row;
         }
     }
 }

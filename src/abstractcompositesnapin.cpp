@@ -33,7 +33,7 @@ public:
     QMap<QString, QVersionNumber> dependencies;
 };
 
-QMap<QString, QVersionNumber> AbstractCompositeSnapIn::getDependencies()
+QMap<QString, QVersionNumber> AbstractCompositeSnapIn::getDependencies() const
 {
     return d->dependencies;
 }

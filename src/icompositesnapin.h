@@ -32,7 +32,7 @@ namespace gpui
 class ICompositeSnapIn : public ISnapIn
 {
 public:
-    virtual QMap<QString, QVersionNumber> getDependencies() = 0;
+    virtual QMap<QString, QVersionNumber> getDependencies() const = 0;
 };
 
 }
