@@ -18,32 +18,10 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _ISNAPINDETAILSDIALOG_H
-#define _ISNAPINDETAILSDIALOG_H
-
-#include <QDialog>
-
-#include "isnapin.h"
+#include "snapindetailsfactory.h"
 
 namespace gpui
 {
-
-/**
- * @brief Common interface for a details dialog.
- */
-class ISnapInDetailsDialog : public QDialog
-{
-    Q_OBJECT
-
-public:
-    explicit ISnapInDetailsDialog(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
-        : QDialog(parent, f)
-    {
-    }
-
-    virtual void setSnapIn(ISnapIn* snapIn) = 0;
-};
-
+::gpui::Factory<ISnapInDetailsDialog, QString> SnapInDetailsFactory::factory
+    = ::gpui::Factory<ISnapInDetailsDialog, QString>();
 }
-
-#endif  //_ISNAPINDETAILSDIALOG_H

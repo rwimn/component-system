@@ -20,11 +20,19 @@
 
 #include "snapinmanagementwidgettest.h"
 
+#include "testcompositesnapin.h"
 #include "testsnapin.h"
+
+#include "snapindetailsfactory.h"
 #include "snapinmanagementwidget.h"
+
+#include "compositesnapindetailsdialog.h"
+#include "snapindetailsdialog.h"
 
 #include <QTest>
 #include <QTreeWidget>
+#include <QSignalSpy>
+#include <QTimer>
 
 using namespace ::testing;
 using namespace ::gpui;
@@ -52,6 +60,40 @@ TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstructio
     ASSERT_EQ(treeWidget->topLevelItem(0)->text(0), "Yes");
     ASSERT_EQ(treeWidget->topLevelItem(0)->text(1), "TestSnapIn");
     ASSERT_EQ(treeWidget->topLevelItem(0)->text(2), "0.1.2");
+}
+
+TEST_F(SnapInManagementWidgetTest, MultipleSnapInsTest)
+{
+    std::vector<ISnapIn*> snapIns;
+    std::unique_ptr<TestSnapIn> testSnapIn(new TestSnapIn());
+    std::unique_ptr<TestCompositeSnapIn> testCompositeSnapIn(new TestCompositeSnapIn());
+
+    snapIns.push_back(testSnapIn.get());
+    snapIns.push_back(testCompositeSnapIn.get());
+
+    ON_CALL(snapInManager, getSnapIns()).WillByDefault(Return(snapIns));
+
+    SnapInDetailsFactory::define<SnapInDetailsDialog>("ISnapIn");
+    SnapInDetailsFactory::define<CompositeSnapInDetailsDialog>("ICompositeSnapIn");
+
+    SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
+    snapInManagementWidget.show();
+
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+
+    QTest::qWait(1000);
+
+    EXPECT_TRUE(treeWidget);
+
+    QTimer::singleShot(2000, &snapInManagementWidget, [&]()
+    {
+        for (const auto& widget :  QApplication::topLevelWidgets())
+        {
+            widget->close();
+        }
+    });
+
+    treeWidget->doubleClicked(treeWidget->model()->index(1, 0));
 }
 
 }

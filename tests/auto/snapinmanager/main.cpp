@@ -18,32 +18,19 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _ISNAPINDETAILSDIALOG_H
-#define _ISNAPINDETAILSDIALOG_H
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-#include <QDialog>
+#include <QApplication>
+#include <QStandardItem>
 
-#include "isnapin.h"
-
-namespace gpui
+int main(int argc, char** argv)
 {
+    ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
 
-/**
- * @brief Common interface for a details dialog.
- */
-class ISnapInDetailsDialog : public QDialog
-{
-    Q_OBJECT
+    QApplication app(argc, argv);
+    Q_UNUSED(app)
 
-public:
-    explicit ISnapInDetailsDialog(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
-        : QDialog(parent, f)
-    {
-    }
-
-    virtual void setSnapIn(ISnapIn* snapIn) = 0;
-};
-
+    return RUN_ALL_TESTS();
 }
-
-#endif  //_ISNAPINDETAILSDIALOG_H

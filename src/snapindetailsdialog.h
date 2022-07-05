@@ -43,7 +43,10 @@ private:
 
 public:
     SnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
+    SnapInDetailsDialog(QWidget* parent = nullptr);
     ~SnapInDetailsDialog();
+
+    void setSnapIn(ISnapIn* snapIn) override;
 
 private:
     Ui::SnapInDetailsDialog* ui;

@@ -18,32 +18,29 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _ISNAPINDETAILSDIALOG_H
-#define _ISNAPINDETAILSDIALOG_H
+#ifndef TEST_COMPOSITE_SNAP_IN_H
+#define TEST_COMPOSITE_SNAP_IN_H
 
-#include <QDialog>
+#include "abstractcompositesnapin.h"
 
-#include "isnapin.h"
-
-namespace gpui
+namespace test
 {
 
-/**
- * @brief Common interface for a details dialog.
- */
-class ISnapInDetailsDialog : public QDialog
+class TestCompositeSnapIn : public ::gpui::AbstractCompositeSnapIn
 {
-    Q_OBJECT
-
 public:
-    explicit ISnapInDetailsDialog(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
-        : QDialog(parent, f)
+    TestCompositeSnapIn()
+        : ::gpui::AbstractCompositeSnapIn("ICompositeSnapIn", "TestSnapIn", "Help Text.", { 0, 1, 2 }, "MIT", "BaseALT")
     {
+        addDependency("Plugin 1", { 1, 0, 0 });
+        addDependency("Plugin 2", { 2, 10, 1 });
     }
 
-    virtual void setSnapIn(ISnapIn* snapIn) = 0;
+    void onInitialize() override {}
+
+    void onShutdown() override {}
 };
 
 }
 
-#endif  //_ISNAPINDETAILSDIALOG_H
+#endif//TEST_COMPOSITE_SNAP_IN_H

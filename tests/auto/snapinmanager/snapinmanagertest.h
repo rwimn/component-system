@@ -18,21 +18,30 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _COMPOSITESNAPINDETAILSDAILOGFACTORY_H
-#define _COMPOSITESNAPINDETAILSDAILOGFACTORY_H
+#ifndef SNAP_IN_MANAGEMENT_WIDGET_TEST_H
+#define SNAP_IN_MANAGEMENT_WIDGET_TEST_H
 
-#include "snapindetailsfactorybase.h"
+#include <gtest/gtest.h>
 
-namespace gpui
+#include "mocksnapin.h"
+#include "snapinmanager.h"
+
+namespace test
 {
 
-/**
- * @brief The CompositeSnapInDetailsDailogFactory class Creates composite snap-in details dialog.
- */
-class CompositeSnapInDetailsDailogFactory : public SnapInDetailsFactoryBase
+class SnapInManagerTest : public ::testing::Test
 {
+public:
+    SnapInManagerTest() = default;
+
+protected:
+    //Dependancies
+    ::testing::NiceMock<MockSnapIn> snapIn;
+
+    // Class under test.
+    ::gpui::SnapInManager snapInManager;
 };
 
 }
 
-#endif  //_COMPOSITESNAPINDETAILSDAILOGFACTORY_H
+#endif//SNAP_IN_MANAGEMENT_WIDGET_TEST_H

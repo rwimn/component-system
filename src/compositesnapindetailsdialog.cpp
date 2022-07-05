@@ -29,11 +29,25 @@ namespace gpui
 {
 
 CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
+    : CompositeSnapInDetailsDialog(parent)
+{
+    setSnapIn(snapIn);
+}
+
+CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent)
     : ISnapInDetailsDialog(parent)
     , ui(new Ui::CompositeSnapInDetailsDialog())
 {
     ui->setupUi(this);
+}
 
+CompositeSnapInDetailsDialog::~CompositeSnapInDetailsDialog()
+{
+    delete ui;
+}
+
+void CompositeSnapInDetailsDialog::setSnapIn(ISnapIn *snapIn)
+{
     ui->snapInWidget->setSnapIn(snapIn);
 
     auto compositeSnapIn = dynamic_cast<ICompositeSnapIn*>(snapIn);
@@ -59,11 +73,6 @@ CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui
             ++row;
         }
     }
-}
-
-CompositeSnapInDetailsDialog::~CompositeSnapInDetailsDialog()
-{
-    delete ui;
 }
 
 }

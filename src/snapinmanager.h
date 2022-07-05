@@ -35,6 +35,7 @@ class SnapInManagerPrivate;
 class SnapInManager final : public ISnapInManager
 {
 public:
+    SnapInManager();
     ~SnapInManager();
 
     void addSnapIn(ISnapIn* snapIn) override final;
@@ -45,14 +46,7 @@ public:
 
     void clear() override final;
 
-    /**
-     * Get the instance of a snap-in manager.
-     */
-    static ISnapInManager* instance();
-
 private:
-    SnapInManager();
-
     SnapInManager(const SnapInManager&)            = delete;   // copy ctor
     SnapInManager(SnapInManager&&)                 = delete;   // move ctor
     SnapInManager& operator=(const SnapInManager&) = delete;   // copy assignment

@@ -29,7 +29,7 @@ namespace gpui
 /**
  * @brief Composite snap-in requires list of dependencies to operate.
  */
-class ICompositeSnapIn : public ISnapIn
+class ICompositeSnapIn : public virtual ISnapIn
 {
 public:
     virtual QMap<QString, QVersionNumber> getDependencies() const = 0;

@@ -9,7 +9,6 @@ set(HEADERS
     abstractcompositesnapin.h
     abstractsnapin.h
     common.h
-    compositesnapindetailsdailogfactory.h
     compositesnapindetailsdialog.h
     factory.h
     icompositesnapin.h
@@ -19,9 +18,8 @@ set(HEADERS
     model.h
     plugin.h
     pluginstorage.h
-    snapindetailsdialogfactory.h
     snapindetailsdialog.h
-    snapindetailsfactorybase.h
+    snapindetailsfactory.h
     snapinmanagementsettings.h
     snapinmanagementwidget.h
     snapinmanager.h
@@ -36,6 +34,7 @@ set(SOURCES
     plugin.cpp
     pluginstorage.cpp
     snapindetailsdialog.cpp
+    snapindetailsfactory.cpp
     snapinmanagementwidget.cpp
     snapinmanager.cpp
     snapindetailswidget.cpp

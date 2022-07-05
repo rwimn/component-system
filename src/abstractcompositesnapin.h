@@ -30,7 +30,7 @@ namespace gpui
 
 class AbstractCompositeSnapInPrivate;
 
-class AbstractCompositeSnapIn : public AbstractSnapIn, public ICompositeSnapIn
+class AbstractCompositeSnapIn : public ICompositeSnapIn, public AbstractSnapIn
 {
 public:
     QMap<QString, QVersionNumber> getDependencies() const override final;

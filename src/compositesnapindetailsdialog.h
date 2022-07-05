@@ -41,7 +41,10 @@ class CompositeSnapInDetailsDialog : public ISnapInDetailsDialog
 
 public:
     CompositeSnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
+    CompositeSnapInDetailsDialog(QWidget* parent = nullptr);
     ~CompositeSnapInDetailsDialog();
+
+    void setSnapIn(ISnapIn* snapIn) override;
 
 private:
     Ui::CompositeSnapInDetailsDialog* ui;

@@ -34,6 +34,16 @@ public:
     std::vector<ISnapIn*> snapIns;
 };
 
+SnapInManager::SnapInManager()
+    : d(new SnapInManagerPrivate())
+{
+}
+
+SnapInManager::~SnapInManager()
+{
+    delete d;
+}
+
 void SnapInManager::addSnapIn(ISnapIn* snapIn)
 {
     d->snapIns.push_back(snapIn);
@@ -41,7 +51,11 @@ void SnapInManager::addSnapIn(ISnapIn* snapIn)
 
 void SnapInManager::removeSnapIn(ISnapIn* snapIn)
 {
-    d->snapIns.erase(std::remove(d->snapIns.begin(), d->snapIns.end(), snapIn));
+    auto element = std::find(d->snapIns.begin(), d->snapIns.end(), snapIn);
+    if (element != d->snapIns.end())
+    {
+        d->snapIns.erase(element);
+    }
 }
 
 std::vector<ISnapIn *> SnapInManager::getSnapIns() const
@@ -52,23 +66,6 @@ std::vector<ISnapIn *> SnapInManager::getSnapIns() const
 void SnapInManager::clear()
 {
     d->snapIns.clear();
-}
-
-ISnapInManager* SnapInManager::instance()
-{
-    static SnapInManager instance;
-
-    return &instance;
-}
-
-SnapInManager::SnapInManager()
-    : d(new SnapInManagerPrivate())
-{
-}
-
-SnapInManager::~SnapInManager()
-{
-    delete d;
 }
 
 }

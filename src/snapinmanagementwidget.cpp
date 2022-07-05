@@ -22,7 +22,7 @@
 #include "ui_snapinmanagementwidget.h"
 
 #include "isnapin.h"
-#include "snapindetailsfactorybase.h"
+#include "snapindetailsfactory.h"
 
 #include <QTreeWidgetItem>
 #include <QTableWidget>
@@ -47,11 +47,11 @@ class SnapInManagementWidgetPrivate
 public:
     Ui::SnapInManagementWidget* ui = nullptr;
     ISnapInManager* manager = nullptr;
-    std::unique_ptr<SnapInDetailsFactoryBase> factory;
+    std::unique_ptr<SnapInDetailsFactory> factory;
 
     SnapInManagementWidgetPrivate()
         : ui(new Ui::SnapInManagementWidget())
-        , factory(new SnapInDetailsFactoryBase())
+        , factory(new SnapInDetailsFactory())
     {
     }
 
@@ -95,8 +95,19 @@ SnapInManagementWidget::~SnapInManagementWidget()
 
 void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
-    Q_UNUSED(item);
     Q_UNUSED(column);
+
+    auto snapIn = item->data(FIRST, Qt::UserRole).value<ISnapIn*>();
+
+    if (snapIn)
+    {
+        auto snapInDetailsDialog = d->factory->create(snapIn->getType());
+        if (snapInDetailsDialog)
+        {
+            snapInDetailsDialog->setSnapIn(snapIn);
+            snapInDetailsDialog->exec();
+        }
+    }
 }
 
 }
