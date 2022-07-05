@@ -18,8 +18,8 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef _SNAPINMANAGERADAPTER_H
-#define _SNAPINMANAGERADAPTER_H
+#ifndef _SnapInManager_H
+#define _SnapInManager_H
 
 #include "isnapinmanager.h"
 #include "isnapin.h"
@@ -27,15 +27,15 @@
 namespace gpui
 {
 
-class SnapInManagerAdapterPrivate;
+class SnapInManagerPrivate;
 
 /**
- * @brief The SnapInManagerAdapter class This class adapts PluginStorage to provide ISnapInManager interface.
+ * @brief The SnapInManager class provides implementation of ISnapInManager interface.
  */
-class SnapInManagerAdapter final : public ISnapInManager
+class SnapInManager final : public ISnapInManager
 {
 public:
-    ~SnapInManagerAdapter();
+    ~SnapInManager();
 
     void addSnapIn(ISnapIn* snapIn) override final;
 
@@ -51,17 +51,17 @@ public:
     static ISnapInManager* instance();
 
 private:
-    SnapInManagerAdapter();
+    SnapInManager();
 
-    SnapInManagerAdapter(const SnapInManagerAdapter&)            = delete;   // copy ctor
-    SnapInManagerAdapter(SnapInManagerAdapter&&)                 = delete;   // move ctor
-    SnapInManagerAdapter& operator=(const SnapInManagerAdapter&) = delete;   // copy assignment
-    SnapInManagerAdapter& operator=(SnapInManagerAdapter&&)      = delete;   // move assignment
+    SnapInManager(const SnapInManager&)            = delete;   // copy ctor
+    SnapInManager(SnapInManager&&)                 = delete;   // move ctor
+    SnapInManager& operator=(const SnapInManager&) = delete;   // copy assignment
+    SnapInManager& operator=(SnapInManager&&)      = delete;   // move assignment
 
 private:
-    SnapInManagerAdapterPrivate *d;
+    SnapInManagerPrivate *d;
 };
 
 }
 
-#endif  //_SNAPINMANAGERADAPTER_H
+#endif  //_SnapInManager_H

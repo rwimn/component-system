@@ -18,7 +18,7 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapinmanageradapter.h"
+#include "snapinmanager.h"
 #include "isnapin.h"
 
 #include "pluginstorage.h"
@@ -28,45 +28,45 @@
 namespace gpui
 {
 
-class SnapInManagerAdapterPrivate
+class SnapInManagerPrivate
 {
 public:
     std::vector<ISnapIn*> snapIns;
 };
 
-void SnapInManagerAdapter::addSnapIn(ISnapIn* snapIn)
+void SnapInManager::addSnapIn(ISnapIn* snapIn)
 {
     d->snapIns.push_back(snapIn);
 }
 
-void SnapInManagerAdapter::removeSnapIn(ISnapIn* snapIn)
+void SnapInManager::removeSnapIn(ISnapIn* snapIn)
 {
-    d->snapIns.erase(std::find(d->snapIns.begin(), d->snapIns.end(), snapIn));
+    d->snapIns.erase(std::remove(d->snapIns.begin(), d->snapIns.end(), snapIn));
 }
 
-std::vector<ISnapIn *> SnapInManagerAdapter::getSnapIns() const
+std::vector<ISnapIn *> SnapInManager::getSnapIns() const
 {
     return d->snapIns;
 }
 
-void SnapInManagerAdapter::clear()
+void SnapInManager::clear()
 {
     d->snapIns.clear();
 }
 
-ISnapInManager* SnapInManagerAdapter::instance()
+ISnapInManager* SnapInManager::instance()
 {
-    static SnapInManagerAdapter instance;
+    static SnapInManager instance;
 
     return &instance;
 }
 
-SnapInManagerAdapter::SnapInManagerAdapter()
-    : d(new SnapInManagerAdapterPrivate())
+SnapInManager::SnapInManager()
+    : d(new SnapInManagerPrivate())
 {
 }
 
-SnapInManagerAdapter::~SnapInManagerAdapter()
+SnapInManager::~SnapInManager()
 {
     delete d;
 }

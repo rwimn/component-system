@@ -24,7 +24,7 @@ set(HEADERS
     snapindetailsfactorybase.h
     snapinmanagementsettings.h
     snapinmanagementwidget.h
-    snapinmanageradapter.h
+    snapinmanager.h
     snapindetailswidget.h
 )
 
@@ -37,7 +37,7 @@ set(SOURCES
     pluginstorage.cpp
     snapindetailsdialog.cpp
     snapinmanagementwidget.cpp
-    snapinmanageradapter.cpp
+    snapinmanager.cpp
     snapindetailswidget.cpp
 )
 
