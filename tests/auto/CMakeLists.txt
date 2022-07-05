@@ -1,2 +1,3 @@
+add_subdirectory(compositesnapindetailsdialog)
 add_subdirectory(snapindetailswidget)
 add_subdirectory(snapinmanagementwidget)
