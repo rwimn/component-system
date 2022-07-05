@@ -45,11 +45,13 @@ TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstructio
 
     auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
 
-    QVERIFY(treeWidget);
+    QTest::qWait(1000);
 
-    QCOMPARE(treeWidget->topLevelItem(0)->text(0), "Yes");
-    QCOMPARE(treeWidget->topLevelItem(0)->text(1), "TestSanpIn");
-    QCOMPARE(treeWidget->topLevelItem(0)->text(3), "0.1.2");
+    EXPECT_TRUE(treeWidget);
+
+    ASSERT_EQ(treeWidget->topLevelItem(0)->text(0), "Yes");
+    ASSERT_EQ(treeWidget->topLevelItem(0)->text(1), "TestSnapIn");
+    ASSERT_EQ(treeWidget->topLevelItem(0)->text(2), "0.1.2");
 }
 
 }
