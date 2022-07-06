@@ -26,7 +26,7 @@
 namespace gpui
 {
     SnapInDetailsDialog::SnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
-        : ISnapInDetailsDialog(parent)
+        : SnapInDetailsDialog(parent)
     {
         setSnapIn(snapIn);
     }
