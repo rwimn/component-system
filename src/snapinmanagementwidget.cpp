@@ -27,6 +27,8 @@
 #include <QTreeWidgetItem>
 #include <QTableWidget>
 
+#include <QMessageBox>
+
 #include <memory>
 
 Q_DECLARE_METATYPE(::gpui::ISnapIn*)
@@ -97,15 +99,31 @@ void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *it
 {
     Q_UNUSED(column);
 
+    if (!item)
+    {
+        return;
+    }
+
     auto snapIn = item->data(FIRST, Qt::UserRole).value<ISnapIn*>();
 
     if (snapIn)
     {
-        auto snapInDetailsDialog = d->factory->create(snapIn->getType());
-        if (snapInDetailsDialog)
+        try
         {
-            snapInDetailsDialog->setSnapIn(snapIn);
-            snapInDetailsDialog->exec();
+            auto snapInDetailsDialog = d->factory->create(snapIn->getType());
+            if (snapInDetailsDialog)
+            {
+                snapInDetailsDialog->setSnapIn(snapIn);
+                snapInDetailsDialog->exec();
+            }
+        }
+        catch (const std::exception& error)
+        {
+            QMessageBox mb(QMessageBox::Critical,
+                           "Error while creating dialog widget",
+                           error.what(),
+                           QMessageBox::Ok);
+            mb.exec();
         }
     }
 }

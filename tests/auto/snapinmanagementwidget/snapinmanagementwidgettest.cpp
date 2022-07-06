@@ -57,9 +57,9 @@ TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstructio
 
     EXPECT_TRUE(treeWidget);
 
-    ASSERT_EQ(treeWidget->topLevelItem(0)->text(0), "Yes");
-    ASSERT_EQ(treeWidget->topLevelItem(0)->text(1), "TestSnapIn");
-    ASSERT_EQ(treeWidget->topLevelItem(0)->text(2), "0.1.2");
+    ASSERT_STREQ(treeWidget->topLevelItem(0)->text(0).toLocal8Bit(), "Yes");
+    ASSERT_STREQ(treeWidget->topLevelItem(0)->text(1).toLocal8Bit(), "TestSnapIn");
+    ASSERT_STREQ(treeWidget->topLevelItem(0)->text(2).toLocal8Bit(), "0.1.2");
 }
 
 TEST_F(SnapInManagementWidgetTest, MultipleSnapInsTest)
@@ -94,6 +94,50 @@ TEST_F(SnapInManagementWidgetTest, MultipleSnapInsTest)
     });
 
     treeWidget->doubleClicked(treeWidget->model()->index(1, 0));
+}
+
+class InvalidSnapIn : public AbstractSnapIn
+{
+public:
+    InvalidSnapIn()
+        : AbstractSnapIn("InvalidSnapInType", "InvalidSnapInName")
+    {
+    }
+
+    void onInitialize() {};
+
+    void onShutdown() {};
+};
+
+TEST_F(SnapInManagementWidgetTest, InvalidSnapInType)
+{
+    std::vector<ISnapIn*> snapIns;
+    std::unique_ptr<InvalidSnapIn> testSnapIn(new InvalidSnapIn());
+
+    snapIns.push_back(testSnapIn.get());
+
+    ON_CALL(snapInManager, getSnapIns()).WillByDefault(Return(snapIns));
+
+    SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
+    snapInManagementWidget.show();
+
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+
+    QTest::qWait(1000);
+
+    EXPECT_TRUE(treeWidget);
+
+    QTimer::singleShot(2000, &snapInManagementWidget, [&]()
+    {
+        for (const auto& widget :  QApplication::topLevelWidgets())
+        {
+            widget->close();
+        }
+    });
+
+    EXPECT_NO_THROW(treeWidget->doubleClicked(treeWidget->model()->index(1, 0)));
+
+    EXPECT_NO_THROW(treeWidget->doubleClicked(treeWidget->model()->index(0, 0)));
 }
 
 }
