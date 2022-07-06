@@ -14,5 +14,6 @@ add_executable(${TEST} ${SOURCES} ${HEADERS})
 target_link_libraries(${TEST} Qt5::Core Qt5::Test)
 target_link_libraries(${TEST} gtest gmock)
 target_link_libraries(${TEST} component-system_static)
+target_link_libraries(${TEST} commontest_static)
 
 add_test(AllTestsComponentSystem ${TEST})
