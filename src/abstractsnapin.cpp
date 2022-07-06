@@ -75,8 +75,8 @@ QString AbstractSnapIn::getCopyright() const
     return d->copyright;
 }
 
-AbstractSnapIn::AbstractSnapIn(QString type, QString name,
-                               QString helpText, QVersionNumber version, QString license, QString copyright)
+AbstractSnapIn::AbstractSnapIn(QString type, QString name, QString helpText, QVersionNumber version,
+                               QString license, QString copyright)
     : Plugin(name)
     , d(new AbstractSnapInPrivate())
 {
@@ -90,6 +90,36 @@ AbstractSnapIn::AbstractSnapIn(QString type, QString name,
 AbstractSnapIn::~AbstractSnapIn()
 {
     delete d;
+}
+
+void AbstractSnapIn::setId(QUuid id)
+{
+    d->id = id;
+}
+
+void AbstractSnapIn::setRootNode(QUuid rootNode)
+{
+    d->rootNode = rootNode;
+}
+
+void AbstractSnapIn::setHelpText(QString text)
+{
+    d->helpText = text;
+}
+
+void AbstractSnapIn::setVersion(QVersionNumber version)
+{
+    d->version = version;
+}
+
+void AbstractSnapIn::setLicense(QString license)
+{
+    d->license = license;
+}
+
+void AbstractSnapIn::setCopyright(QString copyright)
+{
+    d->copyright = copyright;
 }
 
 }

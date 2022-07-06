@@ -65,7 +65,7 @@ protected:
 
     void setHelpText(QString text);
 
-    void setVersion(QString version);
+    void setVersion(QVersionNumber version);
 
     void setLicense(QString license);
 
