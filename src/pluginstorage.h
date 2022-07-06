@@ -30,8 +30,8 @@
 
 class QFileInfo;
 
-namespace gpui {
-
+namespace gpui
+{
 class Plugin;
 class PluginStoragePrivate;
 
@@ -49,7 +49,7 @@ public:
      * \param pluginName
      * \return
      */
-    Plugin *getPlugin(const QString& pluginName);
+    Plugin *getPlugin(const QString &pluginName);
 
     /*!
      * \brief loadPlugin
@@ -62,21 +62,21 @@ public:
      * \brief loadPluginDirectory
      * \param directoryName
      */
-    void loadPluginDirectory(const QString& directoryName);
+    void loadPluginDirectory(const QString &directoryName);
 
     /*!
      * \brief unloadPlugin
      * \param pluginName
      * \return
      */
-    bool unloadPlugin(const QString& pluginName);
+    bool unloadPlugin(const QString &pluginName);
 
     /*!
      * \brief unloadPlugin
      * \param plugin
      * \return
      */
-    bool unloadPlugin(Plugin* plugin);
+    bool unloadPlugin(Plugin *plugin);
 
     /**
      * @brief loadDefaultPlugins
@@ -87,32 +87,34 @@ public:
      *  \brief createPluginClass
      */
     template<typename T>
-    T* createPluginClass(const QString& pluginName)
+    T *createPluginClass(const QString &pluginName)
     {
-        return reinterpret_cast<T*>(createPluginClass(typeid(T).name(), pluginName));
+        return reinterpret_cast<T *>(createPluginClass(typeid(T).name(), pluginName));
     }
 
-    static PluginStorage* instance();
+    static PluginStorage *instance();
 
 private:
-    void registerPluginClass(const QString& pluginName, const QString& className, std::function<void*()> constructor);
-    bool unregisterPluginClass(const QString& pluginName, const QString& className);
+    void registerPluginClass(const QString &pluginName,
+                             const QString &className,
+                             std::function<void *()> constructor);
+    bool unregisterPluginClass(const QString &pluginName, const QString &className);
 
-    void *createPluginClass(const QString& className, const QString& pluginName);
+    void *createPluginClass(const QString &className, const QString &pluginName);
 
     PluginStorage();
     ~PluginStorage();
 
 private:
-    PluginStorage(const PluginStorage&)            = delete;   // copy ctor
-    PluginStorage(PluginStorage&&)                 = delete;   // move ctor
-    PluginStorage& operator=(const PluginStorage&) = delete;   // copy assignment
-    PluginStorage& operator=(PluginStorage&&)      = delete;   // move assignment
+    PluginStorage(const PluginStorage &) = delete;            // copy ctor
+    PluginStorage(PluginStorage &&)      = delete;            // move ctor
+    PluginStorage &operator=(const PluginStorage &) = delete; // copy assignment
+    PluginStorage &operator=(PluginStorage &&) = delete;      // move assignment
 
 private:
-    PluginStoragePrivate* d;
+    PluginStoragePrivate *d;
 };
 
-}
+} // namespace gpui
 
 #endif // GPUI_PLUGINSTORAGE_H

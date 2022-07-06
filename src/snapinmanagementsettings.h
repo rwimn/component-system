@@ -25,13 +25,12 @@
 
 namespace gpui
 {
-
 class SnapInManagementSettings
 {
 private:
     QSettings settings;
 };
 
-}
+} // namespace gpui
 
-#endif  //_SNAPINMANAGEMENTSETTINGS_H
+#endif //_SNAPINMANAGEMENTSETTINGS_H

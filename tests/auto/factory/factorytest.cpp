@@ -20,8 +20,8 @@
 
 #include "factorytest.h"
 
-#include "snapindetailsdialog.h"
 #include "isnapindetailsdialog.h"
+#include "snapindetailsdialog.h"
 
 #include <memory>
 
@@ -29,7 +29,6 @@ using namespace gpui;
 
 namespace test
 {
-
 const QString snapInKey = "ISnapIn";
 
 TEST_F(FactoryTest, TestSnapInDialogTypeRegistration)
@@ -38,10 +37,8 @@ TEST_F(FactoryTest, TestSnapInDialogTypeRegistration)
 
     auto testSnapIn = snapInDetailsFactory.create(snapInKey);
 
-    std::unique_ptr<ISnapInDetailsDialog, void(*)(ISnapInDetailsDialog*)> testType(nullptr, [](ISnapInDetailsDialog* d)
-    {
-        Q_UNUSED(d);
-    });
+    std::unique_ptr<ISnapInDetailsDialog, void (*)(ISnapInDetailsDialog *)>
+        testType(nullptr, [](ISnapInDetailsDialog *d) { Q_UNUSED(d); });
 
     EXPECT_EQ(typeid(testSnapIn), typeid(std::unique_ptr<ISnapInDetailsDialog>));
 }
@@ -51,4 +48,4 @@ TEST_F(FactoryTest, TestRepeatedTypeRegistration)
     EXPECT_THROW(snapInDetailsFactory.define<SnapInDetailsDialog>(snapInKey), std::logic_error);
 }
 
-}
+} // namespace test

@@ -27,29 +27,27 @@
 
 namespace gpui
 {
-
 class SnapInManagerPrivate
 {
 public:
-    std::vector<ISnapIn*> snapIns;
+    std::vector<ISnapIn *> snapIns;
 };
 
 SnapInManager::SnapInManager()
     : d(new SnapInManagerPrivate())
-{
-}
+{}
 
 SnapInManager::~SnapInManager()
 {
     delete d;
 }
 
-void SnapInManager::addSnapIn(ISnapIn* snapIn)
+void SnapInManager::addSnapIn(ISnapIn *snapIn)
 {
     d->snapIns.push_back(snapIn);
 }
 
-void SnapInManager::removeSnapIn(ISnapIn* snapIn)
+void SnapInManager::removeSnapIn(ISnapIn *snapIn)
 {
     auto element = std::find(d->snapIns.begin(), d->snapIns.end(), snapIn);
     if (element != d->snapIns.end())
@@ -68,4 +66,4 @@ void SnapInManager::clear()
     d->snapIns.clear();
 }
 
-}
+} // namespace gpui

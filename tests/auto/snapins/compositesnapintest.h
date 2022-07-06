@@ -24,13 +24,12 @@
 
 namespace test
 {
-
 class CompositeSnapInTest : public ::testing::Test
 {
 public:
     CompositeSnapInTest() = default;
 };
 
-}
+} // namespace test
 
-#endif//COMPOSITE_SNAP_IN_TEST_H
+#endif //COMPOSITE_SNAP_IN_TEST_H

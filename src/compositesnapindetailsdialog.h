@@ -26,12 +26,11 @@
 
 namespace Ui
 {
-    class CompositeSnapInDetailsDialog;
+class CompositeSnapInDetailsDialog;
 }
 
 namespace gpui
 {
-
 /**
  * @brief Shows properties and dependencies of composite snap-in.
  */
@@ -40,16 +39,16 @@ class CompositeSnapInDetailsDialog : public ISnapInDetailsDialog
     Q_OBJECT
 
 public:
-    CompositeSnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
-    CompositeSnapInDetailsDialog(QWidget* parent = nullptr);
+    CompositeSnapInDetailsDialog(QWidget *parent, ISnapIn *snapIn);
+    CompositeSnapInDetailsDialog(QWidget *parent = nullptr);
     ~CompositeSnapInDetailsDialog();
 
-    void setSnapIn(ISnapIn* snapIn) override;
+    void setSnapIn(ISnapIn *snapIn) override;
 
 private:
-    Ui::CompositeSnapInDetailsDialog* ui;
+    Ui::CompositeSnapInDetailsDialog *ui;
 };
 
-}
+} // namespace gpui
 
-#endif  //_COMPOSITESNAPINDETAILSDIALOG_H
+#endif //_COMPOSITESNAPINDETAILSDIALOG_H

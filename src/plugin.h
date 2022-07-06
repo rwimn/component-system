@@ -32,46 +32,44 @@
 class QLibrary;
 class QString;
 
-namespace gpui {
-    class PluginPrivate;
-    class PluginStorage;
+namespace gpui
+{
+class PluginPrivate;
+class PluginStorage;
 
-    class GPUI_MODEL_EXPORT Plugin
-    {
-    public:
-        virtual ~Plugin();
+class GPUI_MODEL_EXPORT Plugin
+{
+public:
+    virtual ~Plugin();
 
-        const QString& getName() const;
+    const QString &getName() const;
 
-        void setLibrary(std::unique_ptr<QLibrary> library);
-        QLibrary* getLibrary() const;
+    void setLibrary(std::unique_ptr<QLibrary> library);
+    QLibrary *getLibrary() const;
 
-        const std::map<QString, std::function<void *()> > &getPluginClasses() const;
+    const std::map<QString, std::function<void *()>> &getPluginClasses() const;
 
-    protected:
-        explicit Plugin(const QString& name);
-        explicit Plugin(const char* name);
+protected:
+    explicit Plugin(const QString &name);
+    explicit Plugin(const char *name);
 
-        void registerPluginClass(const QString& name, std::function<void*()> constructor);
+    void registerPluginClass(const QString &name, std::function<void *()> constructor);
 
-    private:
-        Plugin(const Plugin&)            = delete;   // copy ctor
-        Plugin(Plugin&&)                 = delete;   // move ctor
-        Plugin& operator=(const Plugin&) = delete;   // copy assignment
-        Plugin& operator=(Plugin&&)      = delete;   // move assignment
+private:
+    Plugin(const Plugin &) = delete;            // copy ctor
+    Plugin(Plugin &&)      = delete;            // move ctor
+    Plugin &operator=(const Plugin &) = delete; // copy assignment
+    Plugin &operator=(Plugin &&) = delete;      // move assignment
 
-    private:
-        PluginPrivate* d;
-    };
-}
+private:
+    PluginPrivate *d;
+};
+} // namespace gpui
 
 #define GPUI_EXPORT_PLUGIN(name, className) \
-    extern "C" GPUI_SYMBOL_EXPORT gpui::Plugin* gpui_plugin_init() \
-    { \
-        return new className; \
-    }
+    extern "C" GPUI_SYMBOL_EXPORT gpui::Plugin *gpui_plugin_init() { return new className; }
 
 #define GPUI_REGISTER_PLUGIN_CLASS(name, pluginClass) \
-    registerPluginClass(name, [](){ return new pluginClass(); })
+    registerPluginClass(name, []() { return new pluginClass(); })
 
 #endif // GPUI_PLUGIN_H

@@ -27,7 +27,6 @@ using namespace ::gpui;
 
 namespace test
 {
-
 TEST_F(SnapInManagerTest, AddSnapInTest)
 {
     snapInManager.addSnapIn(&snapIn);
@@ -84,5 +83,4 @@ TEST_F(SnapInManagerTest, ClearExistingTest)
     EXPECT_EQ(snapInManager.getSnapIns().size(), 0);
 }
 
-}
-
+} // namespace test

@@ -29,22 +29,20 @@
 
 namespace gpui
 {
-
 class PluginStoragePrivate
 {
 public:
-    std::map<QString, std::unique_ptr<Plugin> > pluginMap = {};
-    std::map<QString, std::map<QString, std::function<void*()> > > classMap = {};
+    std::map<QString, std::unique_ptr<Plugin>> pluginMap                   = {};
+    std::map<QString, std::map<QString, std::function<void *()>>> classMap = {};
 };
 
 PluginStorage::PluginStorage()
     : d(new PluginStoragePrivate())
-{
-}
+{}
 
 PluginStorage::~PluginStorage()
 {
-    for (auto& plugin : d->pluginMap)
+    for (auto &plugin : d->pluginMap)
     {
         unloadPlugin(plugin.first);
     }
@@ -52,26 +50,28 @@ PluginStorage::~PluginStorage()
     delete d;
 }
 
-Plugin* PluginStorage::getPlugin(const QString& pluginName)
+Plugin *PluginStorage::getPlugin(const QString &pluginName)
 {
     auto search = d->pluginMap.find(pluginName);
-    if (search != d->pluginMap.end()) {
+    if (search != d->pluginMap.end())
+    {
         return search->second.get();
     }
 
     return nullptr;
 }
 
-PluginStorage* PluginStorage::instance()
+PluginStorage *PluginStorage::instance()
 {
     static PluginStorage instance;
 
     return &instance;
 }
 
-bool PluginStorage::loadPlugin(const QFileInfo& fileName)
+bool PluginStorage::loadPlugin(const QFileInfo &fileName)
 {
-    std::unique_ptr<QLibrary> pluginLibrary = std::make_unique<QLibrary>(fileName.absoluteFilePath());
+    std::unique_ptr<QLibrary> pluginLibrary = std::make_unique<QLibrary>(
+        fileName.absoluteFilePath());
     if (!pluginLibrary->load())
     {
         // TODO: Log results.
@@ -79,8 +79,9 @@ bool PluginStorage::loadPlugin(const QFileInfo& fileName)
         return false;
     }
 
-    typedef gpui::Plugin* (*gpui_plugin_init)();
-    gpui_plugin_init initFunction = reinterpret_cast<gpui_plugin_init>(pluginLibrary->resolve("gpui_plugin_init"));
+    typedef gpui::Plugin *(*gpui_plugin_init)();
+    gpui_plugin_init initFunction = reinterpret_cast<gpui_plugin_init>(
+        pluginLibrary->resolve("gpui_plugin_init"));
 
     if (!initFunction)
     {
@@ -89,9 +90,10 @@ bool PluginStorage::loadPlugin(const QFileInfo& fileName)
         return false;
     }
 
-    Plugin* plugin = initFunction();
+    Plugin *plugin = initFunction();
 
-    if (!plugin) {
+    if (!plugin)
+    {
         // TODO: Log results.
 
         return false;
@@ -99,7 +101,7 @@ bool PluginStorage::loadPlugin(const QFileInfo& fileName)
 
     plugin->setLibrary(std::move(pluginLibrary));
 
-    for (const auto& entry : plugin->getPluginClasses())
+    for (const auto &entry : plugin->getPluginClasses())
     {
         registerPluginClass(plugin->getName(), entry.first, entry.second);
     }
@@ -109,22 +111,23 @@ bool PluginStorage::loadPlugin(const QFileInfo& fileName)
     return true;
 }
 
-void PluginStorage::loadPluginDirectory(const QString& directoryName)
+void PluginStorage::loadPluginDirectory(const QString &directoryName)
 {
     QDir directory(directoryName);
     const QFileInfoList files = directory.entryInfoList();
 
-    for (const QFileInfo& file : files) {
+    for (const QFileInfo &file : files)
+    {
         loadPlugin(file);
     }
 }
 
-bool PluginStorage::unloadPlugin(const QString& pluginName)
+bool PluginStorage::unloadPlugin(const QString &pluginName)
 {
     auto search = d->pluginMap.find(pluginName);
     if (search != d->pluginMap.end())
     {
-        for (const auto& entry : search->second->getPluginClasses())
+        for (const auto &entry : search->second->getPluginClasses())
         {
             unregisterPluginClass(search->second->getName(), entry.first);
         }
@@ -137,7 +140,7 @@ bool PluginStorage::unloadPlugin(const QString& pluginName)
     return false;
 }
 
-bool PluginStorage::unloadPlugin(Plugin* plugin)
+bool PluginStorage::unloadPlugin(Plugin *plugin)
 {
     if (plugin)
     {
@@ -153,24 +156,27 @@ void PluginStorage::loadDefaultPlugins()
     loadPluginDirectory("/usr/lib64/gpui/plugins/");
 }
 
-void PluginStorage::registerPluginClass(const QString& pluginName, const QString& className, std::function<void*()> constructor)
+void PluginStorage::registerPluginClass(const QString &pluginName,
+                                        const QString &className,
+                                        std::function<void *()> constructor)
 {
     auto search = d->classMap.find(pluginName);
     if (search == d->classMap.end())
     {
-        d->classMap[pluginName] = std::map<QString, std::function<void*()> >();
+        d->classMap[pluginName] = std::map<QString, std::function<void *()>>();
     }
-    std::map<QString, std::function<void*()> >& pluginConstructors = d->classMap[pluginName];
-    pluginConstructors[className] = constructor;
+    std::map<QString, std::function<void *()>> &pluginConstructors = d->classMap[pluginName];
+    pluginConstructors[className]                                  = constructor;
 }
 
-bool PluginStorage::unregisterPluginClass(const QString& pluginName, const QString& className)
+bool PluginStorage::unregisterPluginClass(const QString &pluginName, const QString &className)
 {
     auto plugin = d->classMap.find(pluginName);
     if (plugin != d->classMap.end())
     {
         auto search = plugin->second.find(className);
-        if (search != plugin->second.end()) {
+        if (search != plugin->second.end())
+        {
             d->classMap[pluginName].erase(search);
             return true;
         }
@@ -179,7 +185,7 @@ bool PluginStorage::unregisterPluginClass(const QString& pluginName, const QStri
     return false;
 }
 
-void* PluginStorage::createPluginClass(const QString &className, const QString &pluginName)
+void *PluginStorage::createPluginClass(const QString &className, const QString &pluginName)
 {
     auto search = d->classMap.find(pluginName);
     if (search != d->classMap.end())
@@ -190,4 +196,4 @@ void* PluginStorage::createPluginClass(const QString &className, const QString &
     return nullptr;
 }
 
-}
+} // namespace gpui

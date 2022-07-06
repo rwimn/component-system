@@ -27,7 +27,6 @@
 
 namespace gpui
 {
-
 CompositeSnapInDetailsDialog::CompositeSnapInDetailsDialog(QWidget *parent, gpui::ISnapIn *snapIn)
     : CompositeSnapInDetailsDialog(parent)
 {
@@ -50,7 +49,7 @@ void CompositeSnapInDetailsDialog::setSnapIn(ISnapIn *snapIn)
 {
     ui->snapInWidget->setSnapIn(snapIn);
 
-    auto compositeSnapIn = dynamic_cast<ICompositeSnapIn*>(snapIn);
+    auto compositeSnapIn = dynamic_cast<ICompositeSnapIn *>(snapIn);
 
     if (compositeSnapIn)
     {
@@ -62,7 +61,7 @@ void CompositeSnapInDetailsDialog::setSnapIn(ISnapIn *snapIn)
         {
             iterator.next();
 
-            QTableWidgetItem *nameItem = new QTableWidgetItem(iterator.key());
+            QTableWidgetItem *nameItem    = new QTableWidgetItem(iterator.key());
             QTableWidgetItem *versionItem = new QTableWidgetItem(iterator.value().toString());
 
             ui->tableWidget->insertRow(row);
@@ -75,4 +74,4 @@ void CompositeSnapInDetailsDialog::setSnapIn(ISnapIn *snapIn)
     }
 }
 
-}
+} // namespace gpui

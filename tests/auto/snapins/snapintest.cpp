@@ -26,27 +26,31 @@ using namespace gpui;
 
 namespace test
 {
-
 const QString snapInType           = "ISnapIn";
 const QString snapInName           = "TestSnapIn";
 const QString snapInDescription    = "Description";
-const QVersionNumber snapInVersion = { 1, 0, 0 };
+const QVersionNumber snapInVersion = {1, 0, 0};
 const QString snapInLicesnce       = "MIT";
 const QString snapInCopyright      = "BaseALT";
-const QUuid   snapInId             = "00000000-1111-2222-3333-000000000000";
+const QUuid snapInId               = "00000000-1111-2222-3333-000000000000";
 
 class TestConstructorSnapIn : public AbstractSnapIn
 {
 public:
     TestConstructorSnapIn()
-        : AbstractSnapIn(snapInType, snapInName, snapInDescription, snapInVersion, snapInLicesnce, snapInCopyright)
+        : AbstractSnapIn(snapInType,
+                         snapInName,
+                         snapInDescription,
+                         snapInVersion,
+                         snapInLicesnce,
+                         snapInCopyright)
     {
         setId(snapInId);
     }
 
-    void onInitialize() {};
+    void onInitialize(){};
 
-    void onShutdown() {};
+    void onShutdown(){};
 };
 
 TEST_F(SnapInTest, SnapInConstructorTest)
@@ -76,9 +80,9 @@ public:
         setRootNode(snapInId);
     }
 
-    void onInitialize() {};
+    void onInitialize(){};
 
-    void onShutdown() {};
+    void onShutdown(){};
 };
 
 TEST_F(SnapInTest, SnapInSettersTest)
@@ -95,4 +99,4 @@ TEST_F(SnapInTest, SnapInSettersTest)
     ASSERT_EQ(testSnapIn.getRootNode(), snapInId);
 }
 
-}
+} // namespace test

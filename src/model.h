@@ -24,13 +24,12 @@
 #include "common.h"
 
 #ifdef GPUI_MODEL_LIBRARY
-    #define GPUI_MODEL_EXPORT GPUI_SYMBOL_EXPORT
+#define GPUI_MODEL_EXPORT GPUI_SYMBOL_EXPORT
 #else
-    #define GPUI_MODEL_EXPORT GPUI_SYMBOL_IMPORT
+#define GPUI_MODEL_EXPORT GPUI_SYMBOL_IMPORT
 #endif
 
-namespace gpui {
-
-}
+namespace gpui
+{}
 
 #endif // GPUI_MODEL_H

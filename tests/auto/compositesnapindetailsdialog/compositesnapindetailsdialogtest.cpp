@@ -22,23 +22,22 @@
 
 #include "compositesnapindetailsdialog.h"
 
-#include <QTest>
 #include <QLineEdit>
 #include <QPlainTextEdit>
 #include <QTableWidget>
+#include <QTest>
 
 using namespace ::testing;
 using namespace ::gpui;
 
 namespace test
 {
-
 TEST_F(CompositeSnapInDetailsDialogTest, DialogContainsValidInformationAfterConstruction)
 {
     QMap<QString, QVersionNumber> dependencies;
-    dependencies.insert("Plugin1", { 0, 1, 2 });
-    dependencies.insert("Plugin2", { 1, 2, 3 });
-    dependencies.insert("Plugin3", { 2, 3, 4 });
+    dependencies.insert("Plugin1", {0, 1, 2});
+    dependencies.insert("Plugin2", {1, 2, 3});
+    dependencies.insert("Plugin3", {2, 3, 4});
 
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
     ON_CALL(snapIn, getId).WillByDefault(Return(QUuid::createUuid()));
@@ -56,12 +55,15 @@ TEST_F(CompositeSnapInDetailsDialogTest, DialogContainsValidInformationAfterCons
 
     QTest::qWait(1000);
 
-    auto nameLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit*>("nameLineEdit");
-    auto descriptionPlainTextEdit = compositeSnapInDetailsDialog.findChild<QPlainTextEdit*>("descriptionPlainTextEdit");
-    auto versionLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit*>("versionLineEdit");
-    auto licensePlainTextEdit = compositeSnapInDetailsDialog.findChild<QPlainTextEdit*>("licensePlainTextEdit");
-    auto copyrightLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit*>("copyrightLineEdit");
-    auto tableWidget = compositeSnapInDetailsDialog.findChild<QTableWidget*>("tableWidget");
+    auto nameLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit *>("nameLineEdit");
+    auto descriptionPlainTextEdit = compositeSnapInDetailsDialog.findChild<QPlainTextEdit *>(
+        "descriptionPlainTextEdit");
+    auto versionLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit *>("versionLineEdit");
+    auto licensePlainTextEdit = compositeSnapInDetailsDialog.findChild<QPlainTextEdit *>(
+        "licensePlainTextEdit");
+    auto copyrightLineEdit = compositeSnapInDetailsDialog.findChild<QLineEdit *>(
+        "copyrightLineEdit");
+    auto tableWidget = compositeSnapInDetailsDialog.findChild<QTableWidget *>("tableWidget");
 
     EXPECT_TRUE(nameLineEdit);
     EXPECT_TRUE(descriptionPlainTextEdit);
@@ -85,5 +87,4 @@ TEST_F(CompositeSnapInDetailsDialogTest, DialogContainsValidInformationAfterCons
     ASSERT_EQ(tableWidget->item(2, 1)->text(), "2.3.4");
 }
 
-}
-
+} // namespace test

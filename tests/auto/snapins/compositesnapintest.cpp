@@ -30,24 +30,19 @@ using namespace gpui;
 
 namespace test
 {
-
 class TestCompositeSnapIn : public AbstractCompositeSnapIn
 {
 public:
     TestCompositeSnapIn()
         : AbstractCompositeSnapIn("", "")
-    {
-    }
+    {}
 
-    void addDependency(const QString& name, const QVersionNumber& version)
+    void addDependency(const QString &name, const QVersionNumber &version)
     {
         AbstractCompositeSnapIn::addDependency(name, version);
     }
 
-    void removeDependency(const QString& name)
-    {
-        AbstractCompositeSnapIn::removeDependency(name);
-    }
+    void removeDependency(const QString &name) { AbstractCompositeSnapIn::removeDependency(name); }
 
     void onInitialize() {}
 
@@ -58,7 +53,7 @@ TEST_F(CompositeSnapInTest, AddDependencyTest)
 {
     TestCompositeSnapIn testSnapIn;
 
-    testSnapIn.addDependency("Test", { 1, 0, 0 });
+    testSnapIn.addDependency("Test", {1, 0, 0});
 
     ASSERT_EQ(testSnapIn.getDependencies().size(), 1);
 
@@ -72,7 +67,7 @@ TEST_F(CompositeSnapInTest, RemoveDependencyPositiveTest)
 {
     TestCompositeSnapIn testSnapIn;
 
-    testSnapIn.addDependency("Test", { 1, 0, 0 });
+    testSnapIn.addDependency("Test", {1, 0, 0});
 
     ASSERT_EQ(testSnapIn.getDependencies().size(), 1);
 
@@ -92,5 +87,4 @@ TEST_F(CompositeSnapInTest, RemoveDependencyNegativeTest)
     ASSERT_EQ(testSnapIn.getDependencies().size(), 0);
 }
 
-
-}
+} // namespace test

@@ -21,12 +21,11 @@
 #ifndef _SnapInManager_H
 #define _SnapInManager_H
 
-#include "isnapinmanager.h"
 #include "isnapin.h"
+#include "isnapinmanager.h"
 
 namespace gpui
 {
-
 class SnapInManagerPrivate;
 
 /**
@@ -38,24 +37,24 @@ public:
     SnapInManager();
     ~SnapInManager();
 
-    void addSnapIn(ISnapIn* snapIn) override final;
+    void addSnapIn(ISnapIn *snapIn) override final;
 
-    void removeSnapIn(ISnapIn* snapIn) override final;
+    void removeSnapIn(ISnapIn *snapIn) override final;
 
-    std::vector<ISnapIn*> getSnapIns() const override final;
+    std::vector<ISnapIn *> getSnapIns() const override final;
 
     void clear() override final;
 
 private:
-    SnapInManager(const SnapInManager&)            = delete;   // copy ctor
-    SnapInManager(SnapInManager&&)                 = delete;   // move ctor
-    SnapInManager& operator=(const SnapInManager&) = delete;   // copy assignment
-    SnapInManager& operator=(SnapInManager&&)      = delete;   // move assignment
+    SnapInManager(const SnapInManager &) = delete;            // copy ctor
+    SnapInManager(SnapInManager &&)      = delete;            // move ctor
+    SnapInManager &operator=(const SnapInManager &) = delete; // copy assignment
+    SnapInManager &operator=(SnapInManager &&) = delete;      // move assignment
 
 private:
     SnapInManagerPrivate *d;
 };
 
-}
+} // namespace gpui
 
-#endif  //_SnapInManager_H
+#endif //_SnapInManager_H

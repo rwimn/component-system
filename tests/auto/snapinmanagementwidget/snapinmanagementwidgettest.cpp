@@ -29,20 +29,19 @@
 #include "compositesnapindetailsdialog.h"
 #include "snapindetailsdialog.h"
 
-#include <QTest>
-#include <QTreeWidget>
 #include <QSignalSpy>
+#include <QTest>
 #include <QTimer>
+#include <QTreeWidget>
 
 using namespace ::testing;
 using namespace ::gpui;
 
 namespace test
 {
-
 TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstruction)
 {
-    std::vector<ISnapIn*> snapIns;
+    std::vector<ISnapIn *> snapIns;
     std::unique_ptr<TestSnapIn> testSnapIn(new TestSnapIn());
     snapIns.push_back(testSnapIn.get());
 
@@ -51,7 +50,7 @@ TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstructio
     SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
     snapInManagementWidget.show();
 
-    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget *>("treeWidget");
 
     QTest::qWait(1000);
 
@@ -64,7 +63,7 @@ TEST_F(SnapInManagementWidgetTest, TreeWidgetContainsValidSnapInAfterConstructio
 
 TEST_F(SnapInManagementWidgetTest, MultipleSnapInsTest)
 {
-    std::vector<ISnapIn*> snapIns;
+    std::vector<ISnapIn *> snapIns;
     std::unique_ptr<TestSnapIn> testSnapIn(new TestSnapIn());
     std::unique_ptr<TestCompositeSnapIn> testCompositeSnapIn(new TestCompositeSnapIn());
 
@@ -79,15 +78,14 @@ TEST_F(SnapInManagementWidgetTest, MultipleSnapInsTest)
     SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
     snapInManagementWidget.show();
 
-    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget *>("treeWidget");
 
     QTest::qWait(1000);
 
     EXPECT_TRUE(treeWidget);
 
-    QTimer::singleShot(2000, &snapInManagementWidget, [&]()
-    {
-        for (const auto& widget :  QApplication::topLevelWidgets())
+    QTimer::singleShot(2000, &snapInManagementWidget, [&]() {
+        for (const auto &widget : QApplication::topLevelWidgets())
         {
             widget->close();
         }
@@ -101,17 +99,16 @@ class InvalidSnapIn : public AbstractSnapIn
 public:
     InvalidSnapIn()
         : AbstractSnapIn("InvalidSnapInType", "InvalidSnapInName")
-    {
-    }
+    {}
 
-    void onInitialize() {};
+    void onInitialize(){};
 
-    void onShutdown() {};
+    void onShutdown(){};
 };
 
 TEST_F(SnapInManagementWidgetTest, InvalidSnapInType)
 {
-    std::vector<ISnapIn*> snapIns;
+    std::vector<ISnapIn *> snapIns;
     std::unique_ptr<InvalidSnapIn> testSnapIn(new InvalidSnapIn());
 
     snapIns.push_back(testSnapIn.get());
@@ -121,15 +118,14 @@ TEST_F(SnapInManagementWidgetTest, InvalidSnapInType)
     SnapInManagementWidget snapInManagementWidget(nullptr, &snapInManager);
     snapInManagementWidget.show();
 
-    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget*>("treeWidget");
+    auto treeWidget = snapInManagementWidget.findChild<QTreeWidget *>("treeWidget");
 
     QTest::qWait(1000);
 
     EXPECT_TRUE(treeWidget);
 
-    QTimer::singleShot(2000, &snapInManagementWidget, [&]()
-    {
-        for (const auto& widget :  QApplication::topLevelWidgets())
+    QTimer::singleShot(2000, &snapInManagementWidget, [&]() {
+        for (const auto &widget : QApplication::topLevelWidgets())
         {
             widget->close();
         }
@@ -140,5 +136,4 @@ TEST_F(SnapInManagementWidgetTest, InvalidSnapInType)
     EXPECT_NO_THROW(treeWidget->doubleClicked(treeWidget->model()->index(0, 0)));
 }
 
-}
-
+} // namespace test

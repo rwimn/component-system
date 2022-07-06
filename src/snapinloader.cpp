@@ -22,21 +22,19 @@
 
 namespace gpui
 {
-
 class SnapInLoaderPrivate
 {
 public:
-    ISnapInManager* manager { nullptr };
+    ISnapInManager *manager{nullptr};
 
-    SnapInLoaderPrivate(ISnapInManager* manager)
+    SnapInLoaderPrivate(ISnapInManager *manager)
         : manager(manager)
     {}
 };
 
 SnapInLoader::SnapInLoader(ISnapInManager *manager)
     : d(new SnapInLoaderPrivate(manager))
-{
-}
+{}
 
 SnapInLoader::~SnapInLoader()
 {
@@ -50,4 +48,4 @@ void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
     // TODO: Implement.
 }
 
-}
+} // namespace gpui

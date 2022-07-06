@@ -26,7 +26,6 @@
 
 namespace gpui
 {
-
 class AbstractCompositeSnapInPrivate
 {
 public:
@@ -38,12 +37,15 @@ QMap<QString, QVersionNumber> AbstractCompositeSnapIn::getDependencies() const
     return d->dependencies;
 }
 
-AbstractCompositeSnapIn::AbstractCompositeSnapIn(QString type, QString name, QString helpText,
-                                                 QVersionNumber version, QString license, QString copyright)
+AbstractCompositeSnapIn::AbstractCompositeSnapIn(QString type,
+                                                 QString name,
+                                                 QString helpText,
+                                                 QVersionNumber version,
+                                                 QString license,
+                                                 QString copyright)
     : AbstractSnapIn(type, name, helpText, version, license, copyright)
     , d(new AbstractCompositeSnapInPrivate())
-{
-}
+{}
 
 AbstractCompositeSnapIn::~AbstractCompositeSnapIn()
 {
@@ -60,6 +62,4 @@ void AbstractCompositeSnapIn::removeDependency(const QString &name)
     d->dependencies.remove(name);
 }
 
-
-}
-
+} // namespace gpui

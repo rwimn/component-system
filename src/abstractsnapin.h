@@ -21,8 +21,8 @@
 #ifndef _ABSTRACTSNAPIN_H
 #define _ABSTRACTSNAPIN_H
 
-#include "plugin.h"
 #include "isnapin.h"
+#include "plugin.h"
 
 #include <QUuid>
 #include <QVersionNumber>
@@ -54,8 +54,12 @@ public:
     QString getCopyright() const override;
 
 protected:
-    AbstractSnapIn(QString type, QString name,
-                   QString helpText = {}, QVersionNumber version = {}, QString license = {}, QString copyright = {});
+    AbstractSnapIn(QString type,
+                   QString name,
+                   QString helpText       = {},
+                   QVersionNumber version = {},
+                   QString license        = {},
+                   QString copyright      = {});
     ~AbstractSnapIn();
 
 protected:
@@ -72,15 +76,15 @@ protected:
     void setCopyright(QString copyright);
 
 private:
-    AbstractSnapIn(const AbstractSnapIn&)            = delete;   // copy ctor
-    AbstractSnapIn(AbstractSnapIn&&)                 = delete;   // move ctor
-    AbstractSnapIn& operator=(const AbstractSnapIn&) = delete;   // copy assignment
-    AbstractSnapIn& operator=(AbstractSnapIn&&)      = delete;   // move assignment
+    AbstractSnapIn(const AbstractSnapIn &) = delete;            // copy ctor
+    AbstractSnapIn(AbstractSnapIn &&)      = delete;            // move ctor
+    AbstractSnapIn &operator=(const AbstractSnapIn &) = delete; // copy assignment
+    AbstractSnapIn &operator=(AbstractSnapIn &&) = delete;      // move assignment
 
 private:
-    AbstractSnapInPrivate* d;
+    AbstractSnapInPrivate *d;
 };
 
-}
+} // namespace gpui
 
-#endif  //_ABSTRACTSNAPIN_H
+#endif //_ABSTRACTSNAPIN_H

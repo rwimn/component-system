@@ -20,18 +20,8 @@
 
 #include "factory.h"
 
-bool Factory::define(Key key, Constructor constructor)
-{
+bool Factory::define(Key key, Constructor constructor) {}
 
-}
+Type Factory::create(Key key) {}
 
-Type Factory::create(Key key)
-{
-
-}
-
-std::unique_ptr<Base> Factory::createFunction()
-{
-
-}
-
+std::unique_ptr<Base> Factory::createFunction() {}

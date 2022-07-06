@@ -25,13 +25,12 @@
 
 namespace test
 {
-
 class SnapInTest : public ::testing::Test
 {
 public:
     SnapInTest() = default;
 };
 
-}
+} // namespace test
 
-#endif//SNAP_IN_TEST_H
+#endif //SNAP_IN_TEST_H

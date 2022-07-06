@@ -21,8 +21,8 @@
 #ifndef MOCK_SNAP_IN_MANAGER_H
 #define MOCK_SNAP_IN_MANAGER_H
 
-#include "isnapinmanager.h"
 #include "isnapin.h"
+#include "isnapinmanager.h"
 
 #include <gmock/gmock.h>
 
@@ -30,20 +30,19 @@
 
 namespace test
 {
-    class MockSnapInManager : public ::gpui::ISnapInManager
-    {
-    public:
-         MOCK_CONST_METHOD0(getSnapIns, std::vector<::gpui::ISnapIn*>());
+class MockSnapInManager : public ::gpui::ISnapInManager
+{
+public:
+    MOCK_CONST_METHOD0(getSnapIns, std::vector<::gpui::ISnapIn *>());
 
-         MOCK_METHOD1(addSnapIn, void(::gpui::ISnapIn*));
+    MOCK_METHOD1(addSnapIn, void(::gpui::ISnapIn *));
 
-         MOCK_METHOD1(removeSnapIn, void(::gpui::ISnapIn*));
+    MOCK_METHOD1(removeSnapIn, void(::gpui::ISnapIn *));
 
-         MOCK_METHOD0(clear, void());
+    MOCK_METHOD0(clear, void());
 
-         MOCK_METHOD0(getInstance, ::gpui::ISnapInManager*());
-    };
-}
+    MOCK_METHOD0(getInstance, ::gpui::ISnapInManager *());
+};
+} // namespace test
 
-#endif//MOCK_SNAP_IN_MANAGER_H
-
+#endif //MOCK_SNAP_IN_MANAGER_H

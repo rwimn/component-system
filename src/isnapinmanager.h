@@ -27,7 +27,6 @@
 
 namespace gpui
 {
-
 /**
  * @brief class ISnapInManager Manages all the snap-ins in an application.
  */
@@ -40,20 +39,20 @@ public:
      * @brief addSnapIn Adds a snap-in to the manager.
      * @param snapIn Snap-In to add.
      */
-    virtual void addSnapIn(ISnapIn* snapIn) = 0;
+    virtual void addSnapIn(ISnapIn *snapIn) = 0;
 
     //
     /**
      * @brief removeSnapIn Removes a snap-in from the manager.
      * @param snapIn Snap-In to remove.
      */
-    virtual void removeSnapIn(ISnapIn* snapIn) = 0;
+    virtual void removeSnapIn(ISnapIn *snapIn) = 0;
 
     /**
      * @brief getSnapIns Get a list of all snap-ins associated with this manager.
      * @return List of all snap-ins.
      */
-    virtual std::vector<ISnapIn*> getSnapIns() const = 0;
+    virtual std::vector<ISnapIn *> getSnapIns() const = 0;
 
     /**
      * @brief Unload all the snap-ins from the manager.
@@ -61,6 +60,6 @@ public:
     virtual void clear() = 0;
 };
 
-}
+} // namespace gpui
 
-#endif  //_ISNAPINMANAGER_H
+#endif //_ISNAPINMANAGER_H

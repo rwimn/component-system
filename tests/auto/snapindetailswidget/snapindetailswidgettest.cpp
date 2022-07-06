@@ -22,16 +22,15 @@
 
 #include "snapindetailswidget.h"
 
-#include <QTest>
 #include <QLineEdit>
 #include <QPlainTextEdit>
+#include <QTest>
 
 using namespace ::testing;
 using namespace ::gpui;
 
 namespace test
 {
-
 TEST_F(SnapInDetailsWidgetTest, WidgetContainsValidSnapInAfterConstruction)
 {
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
@@ -49,11 +48,13 @@ TEST_F(SnapInDetailsWidgetTest, WidgetContainsValidSnapInAfterConstruction)
 
     QTest::qWait(1000);
 
-    auto nameLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("nameLineEdit");
-    auto descriptionPlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit*>("descriptionPlainTextEdit");
-    auto versionLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("versionLineEdit");
-    auto licensePlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit*>("licensePlainTextEdit");
-    auto copyrightLineEdit = snapInDetailsWidget.findChild<QLineEdit*>("copyrightLineEdit");
+    auto nameLineEdit             = snapInDetailsWidget.findChild<QLineEdit *>("nameLineEdit");
+    auto descriptionPlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit *>(
+        "descriptionPlainTextEdit");
+    auto versionLineEdit      = snapInDetailsWidget.findChild<QLineEdit *>("versionLineEdit");
+    auto licensePlainTextEdit = snapInDetailsWidget.findChild<QPlainTextEdit *>(
+        "licensePlainTextEdit");
+    auto copyrightLineEdit = snapInDetailsWidget.findChild<QLineEdit *>("copyrightLineEdit");
 
     EXPECT_TRUE(nameLineEdit);
     EXPECT_TRUE(descriptionPlainTextEdit);
@@ -68,5 +69,4 @@ TEST_F(SnapInDetailsWidgetTest, WidgetContainsValidSnapInAfterConstruction)
     ASSERT_EQ(copyrightLineEdit->text(), "Copyright");
 }
 
-}
-
+} // namespace test

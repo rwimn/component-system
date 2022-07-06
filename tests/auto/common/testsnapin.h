@@ -25,20 +25,18 @@
 
 namespace test
 {
-
 class TestSnapIn : public ::gpui::AbstractSnapIn
 {
 public:
     TestSnapIn()
-        : ::gpui::AbstractSnapIn("ISnapIn", "TestSnapIn", "Help Text.", { 0, 1, 2 }, "MIT", "BaseALT")
-    {
-    }
+        : ::gpui::AbstractSnapIn("ISnapIn", "TestSnapIn", "Help Text.", {0, 1, 2}, "MIT", "BaseALT")
+    {}
 
     void onInitialize() {}
 
     void onShutdown() {}
 };
 
-}
+} // namespace test
 
-#endif//TEST_SNAP_IN_H
+#endif //TEST_SNAP_IN_H

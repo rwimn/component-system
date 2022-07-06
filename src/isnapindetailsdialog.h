@@ -27,7 +27,6 @@
 
 namespace gpui
 {
-
 /**
  * @brief Common interface for a details dialog.
  */
@@ -38,12 +37,11 @@ class ISnapInDetailsDialog : public QDialog
 public:
     explicit ISnapInDetailsDialog(QWidget *parent = nullptr, Qt::WindowFlags f = Qt::WindowFlags())
         : QDialog(parent, f)
-    {
-    }
+    {}
 
-    virtual void setSnapIn(ISnapIn* snapIn) = 0;
+    virtual void setSnapIn(ISnapIn *snapIn) = 0;
 };
 
-}
+} // namespace gpui
 
-#endif  //_ISNAPINDETAILSDIALOG_H
+#endif //_ISNAPINDETAILSDIALOG_H

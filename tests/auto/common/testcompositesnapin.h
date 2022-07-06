@@ -25,15 +25,19 @@
 
 namespace test
 {
-
 class TestCompositeSnapIn : public ::gpui::AbstractCompositeSnapIn
 {
 public:
     TestCompositeSnapIn()
-        : ::gpui::AbstractCompositeSnapIn("ICompositeSnapIn", "TestSnapIn", "Help Text.", { 0, 1, 2 }, "MIT", "BaseALT")
+        : ::gpui::AbstractCompositeSnapIn("ICompositeSnapIn",
+                                          "TestSnapIn",
+                                          "Help Text.",
+                                          {0, 1, 2},
+                                          "MIT",
+                                          "BaseALT")
     {
-        addDependency("Plugin 1", { 1, 0, 0 });
-        addDependency("Plugin 2", { 2, 10, 1 });
+        addDependency("Plugin 1", {1, 0, 0});
+        addDependency("Plugin 2", {2, 10, 1});
     }
 
     void onInitialize() override {}
@@ -41,6 +45,6 @@ public:
     void onShutdown() override {}
 };
 
-}
+} // namespace test
 
-#endif//TEST_COMPOSITE_SNAP_IN_H
+#endif //TEST_COMPOSITE_SNAP_IN_H

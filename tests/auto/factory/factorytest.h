@@ -21,8 +21,8 @@
 #ifndef FACTORY_TEST_H
 #define FACTORY_TEST_H
 
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #include "snapindetailsfactory.h"
 
@@ -36,4 +36,4 @@ protected:
     ::gpui::SnapInDetailsFactory snapInDetailsFactory;
 };
 
-#endif//FACTORY_TEST_H
+#endif //FACTORY_TEST_H

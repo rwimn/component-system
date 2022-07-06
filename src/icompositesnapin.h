@@ -25,7 +25,6 @@
 
 namespace gpui
 {
-
 /**
  * @brief Composite snap-in requires list of dependencies to operate.
  */
@@ -35,6 +34,6 @@ public:
     virtual QMap<QString, QVersionNumber> getDependencies() const = 0;
 };
 
-}
+} // namespace gpui
 
-#endif  //_ICOMPOSITESNAPIN_H
+#endif //_ICOMPOSITESNAPIN_H

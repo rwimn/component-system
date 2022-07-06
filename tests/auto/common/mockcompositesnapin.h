@@ -23,41 +23,40 @@
 
 #include "icompositesnapin.h"
 
-#include <QUuid>
 #include <QMap>
 #include <QString>
+#include <QUuid>
 #include <QVersionNumber>
 
 #include <gmock/gmock.h>
 
 namespace test
 {
-    class MockCompositeSnapIn : public ::gpui::ICompositeSnapIn
-    {
-    public:
-        MOCK_METHOD0(onInitialize, void());
+class MockCompositeSnapIn : public ::gpui::ICompositeSnapIn
+{
+public:
+    MOCK_METHOD0(onInitialize, void());
 
-        MOCK_METHOD0(onShutdown, void());
+    MOCK_METHOD0(onShutdown, void());
 
-        MOCK_CONST_METHOD0(getId, QUuid());
+    MOCK_CONST_METHOD0(getId, QUuid());
 
-        MOCK_CONST_METHOD0(getType, QString());
+    MOCK_CONST_METHOD0(getType, QString());
 
-        MOCK_CONST_METHOD0(getRootNode, QUuid());
+    MOCK_CONST_METHOD0(getRootNode, QUuid());
 
-        MOCK_CONST_METHOD0(getDisplayName, QString());
+    MOCK_CONST_METHOD0(getDisplayName, QString());
 
-        MOCK_CONST_METHOD0(getHelpText, QString());
+    MOCK_CONST_METHOD0(getHelpText, QString());
 
-        MOCK_CONST_METHOD0(getVersion, QVersionNumber());
+    MOCK_CONST_METHOD0(getVersion, QVersionNumber());
 
-        MOCK_CONST_METHOD0(getLicense, QString());
+    MOCK_CONST_METHOD0(getLicense, QString());
 
-        MOCK_CONST_METHOD0(getCopyright, QString());
+    MOCK_CONST_METHOD0(getCopyright, QString());
 
-        MOCK_CONST_METHOD0(getDependencies, QMap<QString, QVersionNumber>());
-    };
-}
+    MOCK_CONST_METHOD0(getDependencies, QMap<QString, QVersionNumber>());
+};
+} // namespace test
 
-#endif//MOCK_SNAP_IN_MANAGER_H
-
+#endif //MOCK_SNAP_IN_MANAGER_H

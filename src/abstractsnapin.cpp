@@ -22,17 +22,16 @@
 
 namespace gpui
 {
-
 class AbstractSnapInPrivate
 {
 public:
-    QUuid id {};
-    QUuid rootNode {};
-    QString type {};
-    QString helpText {};
-    QVersionNumber version {};
-    QString license {};
-    QString copyright {};
+    QUuid id{};
+    QUuid rootNode{};
+    QString type{};
+    QString helpText{};
+    QVersionNumber version{};
+    QString license{};
+    QString copyright{};
 };
 
 QUuid AbstractSnapIn::getId() const
@@ -75,15 +74,19 @@ QString AbstractSnapIn::getCopyright() const
     return d->copyright;
 }
 
-AbstractSnapIn::AbstractSnapIn(QString type, QString name, QString helpText, QVersionNumber version,
-                               QString license, QString copyright)
+AbstractSnapIn::AbstractSnapIn(QString type,
+                               QString name,
+                               QString helpText,
+                               QVersionNumber version,
+                               QString license,
+                               QString copyright)
     : Plugin(name)
     , d(new AbstractSnapInPrivate())
 {
-    d->type = type;
-    d->helpText = helpText;
-    d->version = version;
-    d->license = license;
+    d->type      = type;
+    d->helpText  = helpText;
+    d->version   = version;
+    d->license   = license;
     d->copyright = copyright;
 }
 
@@ -122,5 +125,4 @@ void AbstractSnapIn::setCopyright(QString copyright)
     d->copyright = copyright;
 }
 
-}
-
+} // namespace gpui

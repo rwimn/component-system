@@ -21,14 +21,13 @@
 #ifndef SNAP_IN_MANAGEMENT_WIDGET_TEST_H
 #define SNAP_IN_MANAGEMENT_WIDGET_TEST_H
 
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #include "mockcompositesnapin.h"
 
 namespace test
 {
-
 class CompositeSnapInDetailsDialogTest : public ::testing::Test
 {
 public:
@@ -39,6 +38,6 @@ protected:
     ::testing::NiceMock<MockCompositeSnapIn> snapIn;
 };
 
-}
+} // namespace test
 
-#endif//SNAP_IN_MANAGEMENT_WIDGET_TEST_H
+#endif //SNAP_IN_MANAGEMENT_WIDGET_TEST_H

@@ -21,6 +21,4 @@
 #include "model.h"
 
 namespace gpui
-{
-
-}
+{}

@@ -22,11 +22,11 @@
 
 #include "snapindetailsdialog.h"
 
-#include <QTest>
+#include <QDialogButtonBox>
 #include <QLineEdit>
 #include <QPlainTextEdit>
-#include <QDialogButtonBox>
 #include <QSignalSpy>
+#include <QTest>
 #include <QTimer>
 
 using namespace ::testing;
@@ -34,7 +34,6 @@ using namespace ::gpui;
 
 namespace test
 {
-
 TEST_F(SnapInDetailsDialogTest, DialogContainsValidInformationAfterConstruction)
 {
     ON_CALL(snapIn, getDisplayName()).WillByDefault(Return("Name"));
@@ -52,11 +51,13 @@ TEST_F(SnapInDetailsDialogTest, DialogContainsValidInformationAfterConstruction)
 
     QTest::qWait(1000);
 
-    auto nameLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("nameLineEdit");
-    auto descriptionPlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit*>("descriptionPlainTextEdit");
-    auto versionLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("versionLineEdit");
-    auto licensePlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit*>("licensePlainTextEdit");
-    auto copyrightLineEdit = snapInDetailsDialog.findChild<QLineEdit*>("copyrightLineEdit");
+    auto nameLineEdit             = snapInDetailsDialog.findChild<QLineEdit *>("nameLineEdit");
+    auto descriptionPlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit *>(
+        "descriptionPlainTextEdit");
+    auto versionLineEdit      = snapInDetailsDialog.findChild<QLineEdit *>("versionLineEdit");
+    auto licensePlainTextEdit = snapInDetailsDialog.findChild<QPlainTextEdit *>(
+        "licensePlainTextEdit");
+    auto copyrightLineEdit = snapInDetailsDialog.findChild<QLineEdit *>("copyrightLineEdit");
 
     EXPECT_TRUE(nameLineEdit);
     EXPECT_TRUE(descriptionPlainTextEdit);
@@ -71,5 +72,4 @@ TEST_F(SnapInDetailsDialogTest, DialogContainsValidInformationAfterConstruction)
     ASSERT_EQ(copyrightLineEdit->text(), "Copyright");
 }
 
-}
-
+} // namespace test

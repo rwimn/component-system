@@ -26,7 +26,6 @@
 
 namespace gpui
 {
-
 /**
  * @brief The ISnapIn interface is a base for all snap-ins in a system.
  */
@@ -94,6 +93,6 @@ public:
     virtual QString getCopyright() const = 0;
 };
 
-}
+} // namespace gpui
 
-#endif  //_ISNAPIN_H
+#endif //_ISNAPIN_H

@@ -26,11 +26,10 @@
 
 namespace gpui
 {
-
 /**
  * @brief Implementation of abstract factory pattern.
  */
-template <typename Interface, typename TKey = std::string>
+template<typename Interface, typename TKey = std::string>
 class Factory
 {
 public:
@@ -44,7 +43,7 @@ public:
      * @param value Factory that constructs the element.
      * @return True on success.
      */
-    bool define(Key const& key, ConcreteFactory const& value)
+    bool define(Key const &key, ConcreteFactory const &value)
     {
         return storage.insert(typename Storage::value_type(key, value)).second;
     }
@@ -54,12 +53,13 @@ public:
      * @param key Key of element ot construct.
      * @return Element of given type.
      */
-    Type create(Key const& key)
+    Type create(Key const &key)
     {
         typename Storage::const_iterator i = storage.find(key);
         if (i == storage.end())
         {
-            throw std::invalid_argument(std::string(__PRETTY_FUNCTION__) + ": key is not registered!");
+            throw std::invalid_argument(std::string(__PRETTY_FUNCTION__)
+                                        + ": key is not registered!");
         }
 
         return i->second();
@@ -79,6 +79,6 @@ private:
     Storage storage;
 };
 
-}
+} // namespace gpui
 
-#endif  //_FACTORY_H
+#endif //_FACTORY_H

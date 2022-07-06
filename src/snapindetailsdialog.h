@@ -26,12 +26,11 @@
 
 namespace Ui
 {
-    class SnapInDetailsDialog;
+class SnapInDetailsDialog;
 }
 
 namespace gpui
 {
-
 /**
  * @brief class SnapInDetailsDialog Shows properties of a snap-in.
  * Provides information on snap-in name, description, version, copyright, lisense.
@@ -42,16 +41,16 @@ private:
     Q_OBJECT
 
 public:
-    SnapInDetailsDialog(QWidget* parent, ISnapIn* snapIn);
-    SnapInDetailsDialog(QWidget* parent = nullptr);
+    SnapInDetailsDialog(QWidget *parent, ISnapIn *snapIn);
+    SnapInDetailsDialog(QWidget *parent = nullptr);
     ~SnapInDetailsDialog();
 
-    void setSnapIn(ISnapIn* snapIn) override;
+    void setSnapIn(ISnapIn *snapIn) override;
 
 private:
-    Ui::SnapInDetailsDialog* ui;
+    Ui::SnapInDetailsDialog *ui;
 };
 
-}
+} // namespace gpui
 
-#endif  //_SNAPINDETAILSDIALOG_H
+#endif //_SNAPINDETAILSDIALOG_H

@@ -28,7 +28,6 @@
 
 namespace test
 {
-
 class SnapInManagerTest : public ::testing::Test
 {
 public:
@@ -42,6 +41,6 @@ protected:
     ::gpui::SnapInManager snapInManager;
 };
 
-}
+} // namespace test
 
-#endif//SNAP_IN_MANAGEMENT_WIDGET_TEST_H
+#endif //SNAP_IN_MANAGEMENT_WIDGET_TEST_H

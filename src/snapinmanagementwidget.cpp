@@ -24,18 +24,17 @@
 #include "isnapin.h"
 #include "snapindetailsfactory.h"
 
-#include <QTreeWidgetItem>
 #include <QTableWidget>
+#include <QTreeWidgetItem>
 
 #include <QMessageBox>
 
 #include <memory>
 
-Q_DECLARE_METATYPE(::gpui::ISnapIn*)
+Q_DECLARE_METATYPE(::gpui::ISnapIn *)
 
 namespace gpui
 {
-
 enum TreeItemColumn
 {
     FIRST   = 0,
@@ -47,20 +46,16 @@ enum TreeItemColumn
 class SnapInManagementWidgetPrivate
 {
 public:
-    Ui::SnapInManagementWidget* ui = nullptr;
-    ISnapInManager* manager = nullptr;
+    Ui::SnapInManagementWidget *ui = nullptr;
+    ISnapInManager *manager        = nullptr;
     std::unique_ptr<SnapInDetailsFactory> factory;
 
     SnapInManagementWidgetPrivate()
         : ui(new Ui::SnapInManagementWidget())
         , factory(new SnapInDetailsFactory())
-    {
-    }
+    {}
 
-    ~SnapInManagementWidgetPrivate()
-    {
-        delete ui;
-    }
+    ~SnapInManagementWidgetPrivate() { delete ui; }
 };
 
 SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *manager)
@@ -70,12 +65,12 @@ SnapInManagementWidget::SnapInManagementWidget(QWidget *parent, ISnapInManager *
     d->manager = manager;
     d->ui->setupUi(this);
 
-    for (ISnapIn* snapIn : manager->getSnapIns())
+    for (ISnapIn *snapIn : manager->getSnapIns())
     {
         auto snapInItem = new QTreeWidgetItem();
 
-        auto enabled = true;
-        auto version = snapIn->getVersion();
+        auto enabled     = true;
+        auto version     = snapIn->getVersion();
         auto displayName = snapIn->getDisplayName();
 
         snapInItem->setText(ENABLED, enabled ? "Yes" : "No");
@@ -104,7 +99,7 @@ void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *it
         return;
     }
 
-    auto snapIn = item->data(FIRST, Qt::UserRole).value<ISnapIn*>();
+    auto snapIn = item->data(FIRST, Qt::UserRole).value<ISnapIn *>();
 
     if (snapIn)
     {
@@ -117,7 +112,7 @@ void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *it
                 snapInDetailsDialog->exec();
             }
         }
-        catch (const std::exception& error)
+        catch (const std::exception &error)
         {
             QMessageBox mb(QMessageBox::Critical,
                            "Error while creating dialog widget",
@@ -128,4 +123,4 @@ void SnapInManagementWidget::on_treeWidget_itemDoubleClicked(QTreeWidgetItem *it
     }
 }
 
-}
+} // namespace gpui
