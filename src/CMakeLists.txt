@@ -12,18 +12,19 @@ set(HEADERS
     compositesnapindetailsdialog.h
     factory.h
     icompositesnapin.h
-    isnapindetailsdialog.h
     isnapin.h
+    isnapindetailsdialog.h
     isnapinmanager.h
     model.h
     plugin.h
     pluginstorage.h
     snapindetailsdialog.h
     snapindetailsfactory.h
+    snapindetailswidget.h
+    snapinloader.h
     snapinmanagementsettings.h
     snapinmanagementwidget.h
     snapinmanager.h
-    snapindetailswidget.h
 )
 
 set(SOURCES
@@ -35,16 +36,17 @@ set(SOURCES
     pluginstorage.cpp
     snapindetailsdialog.cpp
     snapindetailsfactory.cpp
+    snapindetailswidget.cpp
+    snapinloader.cpp
     snapinmanagementwidget.cpp
     snapinmanager.cpp
-    snapindetailswidget.cpp
 )
 
 set(UI_FORMS
     compositesnapindetailsdialog.ui
-    snapinmanagementwidget.ui
     snapindetailsdialog.ui
     snapindetailswidget.ui
+    snapinmanagementwidget.ui
 )
 
 set(SOURCES ${SOURCES} ${HEADERS} ${UI_FORMS})
