@@ -1,6 +1,7 @@
 add_subdirectory(common)
 add_subdirectory(compositesnapindetailsdialog)
 add_subdirectory(factory)
+add_subdirectory(plugin)
 add_subdirectory(snapindetailswidget)
 add_subdirectory(snapinmanagementwidget)
 add_subdirectory(snapindetailsdialog)
