@@ -18,52 +18,41 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapinloader.h"
+#include "snapinloadertest.h"
 
-#include "plugin.h"
-#include "pluginstorage.h"
+#include "snapindetailswidget.h"
 
 #include "isnapin.h"
-#include "isnapinmanager.h"
 
-namespace gpui
+#include <QLineEdit>
+#include <QPlainTextEdit>
+#include <QTest>
+
+using namespace ::testing;
+using namespace ::gpui;
+
+namespace test
 {
-class SnapInLoaderPrivate
-{
-public:
-    ISnapInManager *manager{nullptr};
-
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
-};
-
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
+SnapInLoaderTest::SnapInLoaderTest()
+    : snapInLoader(&manager)
 {}
 
-SnapInLoader::~SnapInLoader()
+TEST_F(SnapInLoaderTest, WidgetContainsValidSnapInAfterConstruction)
 {
-    delete d;
-}
+    EXPECT_NO_FATAL_FAILURE(snapInLoader.loadSnapIns(QDir("./")));
 
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
-{
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
-
-    for (const QFileInfo &file : files)
+    try
     {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
+        EXPECT_EQ(manager.getSnapIns().size(), 2);
 
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
+        EXPECT_EQ(manager.getSnapIns().front()->getDisplayName(), "BarSnapIn");
+
+        EXPECT_EQ(manager.getSnapIns().back()->getDisplayName(), "FooSnapIn");
+    }
+    catch (std::exception &error)
+    {
+        std::cout << error.what() << std::endl;
     }
 }
 
-} // namespace gpui
+} // namespace test

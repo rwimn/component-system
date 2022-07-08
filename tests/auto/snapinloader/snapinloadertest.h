@@ -18,52 +18,31 @@
 **
 ***********************************************************************************************************************/
 
+#ifndef SNAP_IN_MANAGEMENT_WIDGET_TEST_H
+#define SNAP_IN_MANAGEMENT_WIDGET_TEST_H
+
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include "snapinloader.h"
 
-#include "plugin.h"
-#include "pluginstorage.h"
+#include "snapinmanager.h"
 
-#include "isnapin.h"
-#include "isnapinmanager.h"
-
-namespace gpui
+namespace test
 {
-class SnapInLoaderPrivate
+class SnapInLoaderTest : public ::testing::Test
 {
 public:
-    ISnapInManager *manager{nullptr};
+    SnapInLoaderTest();
 
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
+protected:
+    // Dependencies.
+    ::gpui::SnapInManager manager;
+
+    // Class under test.
+    ::gpui::SnapInLoader snapInLoader;
 };
 
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
-{}
+} // namespace test
 
-SnapInLoader::~SnapInLoader()
-{
-    delete d;
-}
-
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
-{
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
-
-    for (const QFileInfo &file : files)
-    {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
-
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
-    }
-}
-
-} // namespace gpui
+#endif //SNAP_IN_MANAGEMENT_WIDGET_TEST_H

@@ -17,53 +17,22 @@
 ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **
 ***********************************************************************************************************************/
+#ifndef FOO_SNAP_IN_H
+#define FOO_SNAP_IN_H
 
-#include "snapinloader.h"
-
-#include "plugin.h"
-#include "pluginstorage.h"
-
-#include "isnapin.h"
-#include "isnapinmanager.h"
+#include "abstractcompositesnapin.h"
 
 namespace gpui
 {
-class SnapInLoaderPrivate
+class FooSnapIn final : public AbstractCompositeSnapIn
 {
 public:
-    ISnapInManager *manager{nullptr};
+    FooSnapIn();
 
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
+    void onInitialize() override;
+
+    void onShutdown() override;
 };
-
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
-{}
-
-SnapInLoader::~SnapInLoader()
-{
-    delete d;
-}
-
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
-{
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
-
-    for (const QFileInfo &file : files)
-    {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
-
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
-    }
-}
-
 } // namespace gpui
+
+#endif // FOO_SNAP_IN_H

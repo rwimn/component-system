@@ -18,52 +18,23 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapinloader.h"
-
 #include "plugin.h"
-#include "pluginstorage.h"
+
+#include "foosnapin.h"
 
 #include "isnapin.h"
-#include "isnapinmanager.h"
 
 namespace gpui
 {
-class SnapInLoaderPrivate
+class FooPlugin : public Plugin
 {
 public:
-    ISnapInManager *manager{nullptr};
-
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
-};
-
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
-{}
-
-SnapInLoader::~SnapInLoader()
-{
-    delete d;
-}
-
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
-{
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
-
-    for (const QFileInfo &file : files)
+    FooPlugin()
+        : Plugin("FooPlugin")
     {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
-
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
+        GPUI_REGISTER_PLUGIN_CLASS(typeid(::gpui::ISnapIn).name(), FooSnapIn);
     }
-}
-
+};
 } // namespace gpui
+
+GPUI_EXPORT_PLUGIN(admx, gpui::FooPlugin)

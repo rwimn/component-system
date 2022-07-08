@@ -18,52 +18,19 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapinloader.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
-#include "plugin.h"
-#include "pluginstorage.h"
+#include <QApplication>
+#include <QStandardItem>
 
-#include "isnapin.h"
-#include "isnapinmanager.h"
-
-namespace gpui
+int main(int argc, char **argv)
 {
-class SnapInLoaderPrivate
-{
-public:
-    ISnapInManager *manager{nullptr};
+    ::testing::InitGoogleTest(&argc, argv);
+    ::testing::InitGoogleMock(&argc, argv);
 
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
-};
+    QApplication app(argc, argv);
+    Q_UNUSED(app)
 
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
-{}
-
-SnapInLoader::~SnapInLoader()
-{
-    delete d;
+    return RUN_ALL_TESTS();
 }
-
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
-{
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
-
-    for (const QFileInfo &file : files)
-    {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
-
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
-    }
-}
-
-} // namespace gpui

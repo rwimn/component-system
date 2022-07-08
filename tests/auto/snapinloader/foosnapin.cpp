@@ -18,52 +18,31 @@
 **
 ***********************************************************************************************************************/
 
-#include "snapinloader.h"
+#include "foosnapin.h"
 
-#include "plugin.h"
-#include "pluginstorage.h"
-
-#include "isnapin.h"
-#include "isnapinmanager.h"
+#include <iostream>
 
 namespace gpui
 {
-class SnapInLoaderPrivate
+FooSnapIn::FooSnapIn()
+    : AbstractCompositeSnapIn("ISnapIn",
+                              "FooSnapIn",
+                              "Test snap-in.",
+                              {1, 0, 0},
+                              "GPL-2.0",
+                              "Copyright (C) 2022 BaseALT Ltd. <org@basealt.ru>")
 {
-public:
-    ISnapInManager *manager{nullptr};
-
-    SnapInLoaderPrivate(ISnapInManager *manager)
-        : manager(manager)
-    {}
-};
-
-SnapInLoader::SnapInLoader(ISnapInManager *manager)
-    : d(new SnapInLoaderPrivate(manager))
-{}
-
-SnapInLoader::~SnapInLoader()
-{
-    delete d;
+    addDependency("BarSnapIn", {1, 0, 0});
 }
 
-void SnapInLoader::loadSnapIns(const QDir &snapInDirectory)
+void FooSnapIn::onInitialize()
 {
-    const QFileInfoList files = snapInDirectory.entryInfoList();
-    QString pluginName;
+    std::cout << std::string(__PRETTY_FUNCTION__) << std::endl;
+}
 
-    for (const QFileInfo &file : files)
-    {
-        if (PluginStorage::instance()->loadPlugin(file, pluginName))
-        {
-            auto snapIn = PluginStorage::instance()->createPluginClass<ISnapIn>(pluginName);
-
-            if (snapIn)
-            {
-                d->manager->addSnapIn(snapIn);
-            }
-        }
-    }
+void FooSnapIn::onShutdown()
+{
+    std::cout << std::string(__PRETTY_FUNCTION__) << std::endl;
 }
 
 } // namespace gpui
