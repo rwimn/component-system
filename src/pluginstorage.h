@@ -54,9 +54,10 @@ public:
     /*!
      * \brief loadPlugin
      * \param fileName
+     * \param pluginName - If load operation was successfull contains name of a plugin.
      * \return
      */
-    bool loadPlugin(const QFileInfo &fileName);
+    bool loadPlugin(const QFileInfo &fileName, QString &pluginName);
 
     /*!
      * \brief loadPluginDirectory

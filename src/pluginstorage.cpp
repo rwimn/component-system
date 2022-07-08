@@ -68,7 +68,7 @@ PluginStorage *PluginStorage::instance()
     return &instance;
 }
 
-bool PluginStorage::loadPlugin(const QFileInfo &fileName)
+bool PluginStorage::loadPlugin(const QFileInfo &fileName, QString &pluginName)
 {
     std::unique_ptr<QLibrary> pluginLibrary = std::make_unique<QLibrary>(
         fileName.absoluteFilePath());
@@ -99,6 +99,8 @@ bool PluginStorage::loadPlugin(const QFileInfo &fileName)
         return false;
     }
 
+    pluginName = plugin->getName();
+
     plugin->setLibrary(std::move(pluginLibrary));
 
     for (const auto &entry : plugin->getPluginClasses())
@@ -115,10 +117,11 @@ void PluginStorage::loadPluginDirectory(const QString &directoryName)
 {
     QDir directory(directoryName);
     const QFileInfoList files = directory.entryInfoList();
+    QString pluginName;
 
     for (const QFileInfo &file : files)
     {
-        loadPlugin(file);
+        loadPlugin(file, pluginName);
     }
 }
 
