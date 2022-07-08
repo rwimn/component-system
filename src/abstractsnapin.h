@@ -34,7 +34,7 @@ class AbstractSnapInPrivate;
 /**
  * @brief Adapts interface of a ISnapIn for a plugin.
  */
-class AbstractSnapIn : protected Plugin, public virtual ISnapIn
+class AbstractSnapIn : public virtual ISnapIn
 {
 public:
     QUuid getId() const override;

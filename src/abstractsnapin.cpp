@@ -25,6 +25,7 @@ namespace gpui
 class AbstractSnapInPrivate
 {
 public:
+    QString name;
     QUuid id{};
     QUuid rootNode{};
     QString type{};
@@ -46,7 +47,7 @@ QUuid AbstractSnapIn::getRootNode() const
 
 QString AbstractSnapIn::getDisplayName() const
 {
-    return Plugin::getName();
+    return d->name;
 }
 
 QString AbstractSnapIn::getType() const
@@ -80,9 +81,9 @@ AbstractSnapIn::AbstractSnapIn(QString type,
                                QVersionNumber version,
                                QString license,
                                QString copyright)
-    : Plugin(name)
-    , d(new AbstractSnapInPrivate())
+    : d(new AbstractSnapInPrivate())
 {
+    d->name      = name;
     d->type      = type;
     d->helpText  = helpText;
     d->version   = version;
