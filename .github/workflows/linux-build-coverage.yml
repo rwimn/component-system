@@ -1,0 +1,65 @@
+name: Linux Test Coverage
+
+on:
+  workflow_run:
+    workflows: ["Linux"]
+    types: 
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake qt5-default qttools5-dev libx11-xcb1 lcov
+
+    - name: Install Gtest
+      run: |
+        sudo apt-get install -y libgtest-dev
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp ./lib/*.a /usr/lib
+
+    - name: Install GMock
+      run: |
+        sudo apt-get install -y libgmock-dev
+          
+    - name: Collect Coverage
+      env:
+        QT_QPA_PLATFORM: offscreen        
+      run: |      
+        cd $GITHUB_WORKSPACE
+        mkdir build && cd build
+        cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_TESTS:BOOL=ON -DSETUP_CODECOVERAGE:BOOL=ON ..
+        make -j4
+        make coverage -j4        
+
+    - name: Create clean documentation branch
+      run:  git checkout -b coverage
+
+    - name: Add generated autodocs to Git repo in the documentation branch
+      run:  |
+        git config --global user.email "github-bot@basealt.ru"
+        git config --global user.name  "$GITHUB_WORKFLOW GitHub action"
+        cd $GITHUB_WORKSPACE/build
+        cp -r coverage ../
+        git add -f $GITHUB_WORKSPACE/coverage
+        git commit -am "docs: add auto-generated coverage information"
+
+    - name: Publish autodocs as GitHub pages
+      run:  git push -f origin coverage:coverage
+
+    - name: Result URLs
+      run:  |
+        REPO_OWNER=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 1)
+        REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)
+        echo "Documentation on a github.io:  https://$REPO_OWNER.github.io/$REPO_NAME/coverage"
+        echo ""
+        echo "Documentation branch: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/coverage" 
