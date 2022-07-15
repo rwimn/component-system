@@ -1,0 +1,51 @@
+name: Linux
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake qt5-default qttools5-dev libx11-xcb1
+
+    - name: Install Gtest
+      run: |
+        sudo apt-get install -y libgtest-dev
+        cd /usr/src/gtest
+        sudo cmake CMakeLists.txt
+        sudo make
+        sudo cp ./lib/*.a /usr/lib
+
+    - name: Install GMock
+      run: |
+        sudo apt-get install -y libgmock-dev
+          
+    - name: Build
+      env:
+        QT_QPA_PLATFORM: offscreen        
+      run: |      
+        cd $GITHUB_WORKSPACE
+        mkdir build && cd build
+        cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_TESTS:BOOL=ON ..
+        make -j4        
+
+    - name: CTest
+      env:
+        QT_QPA_PLATFORM: offscreen        
+      run: |
+        cd $GITHUB_WORKSPACE/build
+        ctest -j4
+
+    - name: Upload test logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+         name: LastTest.log
+         path: ./build/Testing/Temporary/LastTest.log
