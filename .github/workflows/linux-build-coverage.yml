@@ -3,12 +3,13 @@ name: Linux Test Coverage
 on:
   workflow_run:
     workflows: ["Linux"]
-    types: 
+    types:
       - completed
 
 jobs:
-  build:
+  coverage:
     runs-on: ubuntu-20.04
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Get sources
@@ -30,16 +31,16 @@ jobs:
     - name: Install GMock
       run: |
         sudo apt-get install -y libgmock-dev
-          
+
     - name: Collect Coverage
       env:
-        QT_QPA_PLATFORM: offscreen        
-      run: |      
+        QT_QPA_PLATFORM: offscreen
+      run: |
         cd $GITHUB_WORKSPACE
         mkdir build && cd build
         cmake -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_TESTS:BOOL=ON -DSETUP_CODECOVERAGE:BOOL=ON ..
         make -j4
-        make coverage -j4        
+        make coverage -j4
 
     - name: Create clean documentation branch
       run:  git checkout -b documentation
@@ -62,4 +63,4 @@ jobs:
         REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)
         echo "Documentation on a github.io:  https://$REPO_OWNER.github.io/$REPO_NAME/coverage"
         echo ""
-        echo "Documentation branch: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/documentation" 
+        echo "Documentation branch: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/documentation"
