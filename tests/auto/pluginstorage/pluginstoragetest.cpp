@@ -18,9 +18,9 @@
 **
 ***********************************************************************************************************************/
 
-#include "plugintest.h"
+#include "pluginstoragetest.h"
 
-#include "plugin.h"
+#include "pluginstorage.h"
 
 #include <QLibrary>
 #include <QString>
@@ -30,19 +30,32 @@ using namespace ::gpui;
 
 namespace test
 {
+const QString pluginName = "Test Plugin";
 
-class TestPlugin : public ::gpui::Plugin
+class TestPluginStorage : public ::gpui::PluginStorage
 {
 public:
-    explicit TestPlugin(const QString &name)
-        : ::gpui::Plugin(name)
+    explicit TestPluginStorage(const QString &name)
+        : ::gpui::PluginStorage(name)
     {}
+    
+    explicit TestPlugin(const char *name)
+        : ::gpui::PluginStorage(name)
+    {}
+    
+    void registerPluginStorageClass(const QString &name, std::function<void *()> constructor)
+    {
+        PluginStorage::registerPluginStorageClass(name, constructor);
+    }
+
 
 };
 
-TEST_F()
+TEST_F(PluginStorageTest, getPlugin)
 {
-
+    TestPluginStorage plugin();
+    
+    EXPECT_EQ(plugin.getPlugin(pluginName), nullptr);
 }
 
 } // namespace test

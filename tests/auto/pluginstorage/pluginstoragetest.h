@@ -18,16 +18,16 @@
 **
 ***********************************************************************************************************************/
 
-#ifndef PLUGIN_TEST_H
-#define PLUGIN_TEST_H
+#ifndef PLUGIN_STORAGE_TEST_H
+#define PLUGIN_STORAGE_TEST_H
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-class PluginTest : public ::testing::Test
+class PluginStorageTest : public ::testing::Test
 {
 public:
-    PluginTest() = default;
+    PluginStorageTest() = default;
 };
 
-#endif //PLUGIN_TEST_H
+#endif //PLUGIN_STORAGE_TEST_H
