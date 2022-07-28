@@ -18,30 +18,29 @@
 **
 ***********************************************************************************************************************/
 
-#include "pluginstoragetest.h"
+#include "barsnapin.h"
 
-#include "pluginstorage.h"
-#include "plugin.h"
+#include <iostream>
 
-#include <QLibrary>
-#include <QFileInfo>
-#include <QString>
-
-using namespace ::testing;
-using namespace ::gpui;
-
-namespace test
+namespace gpui
 {
+BarSnapIn::BarSnapIn()
+    : AbstractSnapIn("ISnapIn",
+                     "BarSnapIn",
+                     "Test snap-in.",
+                     {1, 0, 0},
+                     "GPL-2.0",
+                     "Copyright (C) 2022 BaseALT Ltd. <org@basealt.ru>")
+{}
 
-TEST_F(PluginStorageTest, getPlugin)
+void BarSnapIn::onInitialize()
 {
-    QString pluginName = "barplugin";
-
-    PluginStorage::instance()->loadPluginDirectory(QString::fromStdString("./"));
-
-    auto plugin = PluginStorage::instance()->getPlugin(pluginName);
-
-    EXPECT_EQ(plugin->getName(), pluginName);
+    std::cout << std::string(__PRETTY_FUNCTION__) << std::endl;
 }
 
-} // namespace test
+void BarSnapIn::onShutdown()
+{
+    std::cout << std::string(__PRETTY_FUNCTION__) << std::endl;
+}
+
+} // namespace gpui

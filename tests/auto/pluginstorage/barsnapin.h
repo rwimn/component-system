@@ -17,31 +17,22 @@
 ** Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 **
 ***********************************************************************************************************************/
+#ifndef BAR_SNAP_IN_H
+#define BAR_SNAP_IN_H
 
-#include "pluginstoragetest.h"
+#include "abstractsnapin.h"
 
-#include "pluginstorage.h"
-#include "plugin.h"
-
-#include <QLibrary>
-#include <QFileInfo>
-#include <QString>
-
-using namespace ::testing;
-using namespace ::gpui;
-
-namespace test
+namespace gpui
 {
-
-TEST_F(PluginStorageTest, getPlugin)
+class BarSnapIn final : public AbstractSnapIn
 {
-    QString pluginName = "barplugin";
+public:
+    BarSnapIn();
 
-    PluginStorage::instance()->loadPluginDirectory(QString::fromStdString("./"));
+    void onInitialize() override;
 
-    auto plugin = PluginStorage::instance()->getPlugin(pluginName);
+    void onShutdown() override;
+};
+} // namespace gpui
 
-    EXPECT_EQ(plugin->getName(), pluginName);
-}
-
-} // namespace test
+#endif // BAR_SNAP_IN_H

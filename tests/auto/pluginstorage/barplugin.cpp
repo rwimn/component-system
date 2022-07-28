@@ -18,30 +18,23 @@
 **
 ***********************************************************************************************************************/
 
-#include "pluginstoragetest.h"
-
-#include "pluginstorage.h"
 #include "plugin.h"
 
-#include <QLibrary>
-#include <QFileInfo>
-#include <QString>
+#include "barsnapin.h"
 
-using namespace ::testing;
-using namespace ::gpui;
+#include "isnapin.h"
 
-namespace test
+namespace gpui
 {
-
-TEST_F(PluginStorageTest, getPlugin)
+class BarPlugin : public Plugin
 {
-    QString pluginName = "barplugin";
+public:
+    BarPlugin()
+        : Plugin("barplugin")
+    {
+        GPUI_REGISTER_PLUGIN_CLASS(typeid(::gpui::ISnapIn).name(), BarSnapIn);
+    }
+};
+} // namespace gpui
 
-    PluginStorage::instance()->loadPluginDirectory(QString::fromStdString("./"));
-
-    auto plugin = PluginStorage::instance()->getPlugin(pluginName);
-
-    EXPECT_EQ(plugin->getName(), pluginName);
-}
-
-} // namespace test
+GPUI_EXPORT_PLUGIN(admx, gpui::BarPlugin)
